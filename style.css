@@ -1,0 +1,18 @@
+* {
+  background-color: rgb(1, 0, 7);
+  color: bisque;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+img {
+  width: 300px;
+  height: auto;
+}
+
+h1 {
+  color: coral;
+}
+
+h2 {
+  color: rgb(252, 139, 99);
+}
