@@ -1,27 +1,14 @@
 * {
-  font-size: 8vh;
+  font-size: 4vh;
 }
 
 body {
   background-color: #222;
   color: #fff;
   font-family: Arial, sans-serif;
-  padding: 20px;
-  margin: 0;
+  margin: 1vh;
   display: flex;
   flex-direction: column;
-}
-
-h2 {
-  margin-bottom: 10px;
-}
-
-ul {
-  padding-left: 3vh;
-}
-
-li {
-  margin-bottom: 5px;
 }
 
 a {
@@ -32,9 +19,36 @@ a {
 .header {
   background: #1F2937;
   display: flex;
+  flex: 1;
+  margin: -1vh -1vh 0 -1vh;
   justify-content: center;
-  align-items: center;
-  margin: -4vh;
-  padding: 4vh;
-  font-size: 9vh;
+}
+
+.header2 {
+  background: #1F2937;
+  display: flex;
+  flex: 1;
+  margin: -1vh;
+  padding-left: 1vh;
+}
+
+li{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.links ul li:nth-child(even) a {
+  display: flex;
+  background-color: #2f2f2f;
+}
+.links ul li a {
+  margin: 0 -1vh;
+}
+
+.links ul{
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 2px;
 }

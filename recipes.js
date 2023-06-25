@@ -59,7 +59,7 @@ function createRecipeHTML(recipeTitle, recipeIngredients) {
       <link rel="stylesheet" href="../style.css">
     </head>
     <body>
-      <div class="header">
+      <div class="header2">
         <h2><a href="../index.html">⬅️</a>${recipeTitle}</h2>
       </div>
       <ul>
@@ -87,9 +87,11 @@ function createIndexHTML(recipeTitles) {
       <div class="header">
         <h1>Vegán Receptek</h1>
       </div>
-      <ul>
-        ${recipeLinks}
-      </ul>
+      <div class=links>
+        <ul>
+          ${recipeLinks}
+        </ul>
+      </div>
     </body>
     </html>
   `;
