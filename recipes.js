@@ -59,7 +59,7 @@ function createRecipeHTML(recipeTitle, recipeIngredients) {
       <link rel="stylesheet" href="../style.css">
     </head>
     <body>
-      <h2><button><a href="../index.html">🡠</a></button>${recipeTitle}</h2>
+      <h2><a href="../index.html">⬅️</a>${recipeTitle}</h2>
       <ul>
         ${recipeIngredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
       </ul>
