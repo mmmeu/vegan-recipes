@@ -73,7 +73,7 @@ function createRecipeHTML(recipeTitle, recipeIngredients) {
 
 function createIndexHTML(recipeTitles) {
   recipeTitles.sort();
-  const recipeLinks = recipeTitles.map(title => `<li><a href="recipes/${title.replace(/ /g, '-')}.html">${title}</a></li>`).join('');
+  const recipeLinks = recipeTitles.map(title => `<li><a href="recipes/${title.replace(/ /g, '-')}.html">•${title}</a></li>`).join('');
 
   const html = `
   <!DOCTYPE html>
