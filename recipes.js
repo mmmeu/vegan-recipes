@@ -13,22 +13,18 @@ function readRecipesFromFile(filename) {
     const line = lines[i].trim();
 
     if (line.length === 0) {
-      // Empty line indicates the end of a recipe
       if (currentTitle) {
         recipes[currentTitle] = currentIngredients ? currentIngredients.split(',') : [];
       }
       currentTitle = null;
       currentIngredients = null;
     } else if (!currentTitle) {
-      // Line contains the recipe title
       currentTitle = capitalizeFirstLetter(line);
     } else if (!currentIngredients) {
-      // Line contains the ingredients
       currentIngredients = line.toLowerCase();
     }
   }
 
-  // Check if there is a recipe left to be added after the loop
   if (currentTitle) {
     recipes[currentTitle] = currentIngredients ? currentIngredients.split(',') : [];
   }
@@ -41,15 +37,15 @@ function capitalizeFirstLetter(str) {
 }
 
 // Example usage
-const filename = 'recipes.txt'; // Replace with the actual file name
+const filename = 'recipes.txt';
 const recipes = readRecipesFromFile(filename);
 console.log(recipes);
 
 
 
 function createRecipeHTML(recipeTitle, recipeIngredients) {
-  const folderPath = 'recipes'; // Specify the folder path
-  const filename = `${recipeTitle.replace(/ /g, '-')}.html`; // Replace spaces with dashes in the filename
+  const folderPath = 'recipes';
+  const filename = `${recipeTitle.replace(/ /g, '-')}.html`;
   const filePath = path.join(folderPath, filename);
   const html = `
     <!DOCTYPE html>
@@ -60,7 +56,7 @@ function createRecipeHTML(recipeTitle, recipeIngredients) {
     </head>
     <body>
       <div class="header2">
-        <h2><a href="../index.html">⬅️</a>${recipeTitle}</h2>
+        <h2><a href="../index.html">⬅️</a> ${recipeTitle}</h2>
       </div>
       <ul>
         ${recipeIngredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
@@ -71,43 +67,51 @@ function createRecipeHTML(recipeTitle, recipeIngredients) {
 
   fs.writeFileSync(filePath, html, 'utf-8');
   console.log(`Created ${filename}`);
+  recipeArray += `${filePath.replace(/\\/g, '/')}', '`;
+
 }
 
 function createIndexHTML(recipeTitles) {
   recipeTitles.sort();
   const recipeLinks = recipeTitles.map(title => `<li><a href="recipes/${title.replace(/ /g, '-')}.html">${title}</a></li>`).join('');
+
   const html = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <title>Vegán Receptek</title>
-      <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-      <div class="header">
-        <h1>Vegán Receptek</h1>
-      </div>
-      <div class=links>
-        <ul>
-          ${recipeLinks}
-        </ul>
-      </div>
-    </body>
-    </html>
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Vegán Receptek</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="header">
+      <h1>Vegán Receptek <a href="#" onclick="randomSite();">🎲</a></h1>
+    </div>
+    <div class=links>
+      <ul>
+        ${recipeLinks}
+      </ul>
+    </div>
+    <script>
+      let recipeArray = ['${recipeArray}'];
+      function randomSite() {
+          var i = parseInt(Math.random() * recipeArray.length-1);
+          location.href = recipeArray[i];
+      }
+  </script>
+  </body>
+  </html>
   `;
 
   fs.writeFileSync('index.html', html, 'utf-8');
   console.log('Created index.html');
 }
 
-
 const recipeTitles = Object.keys(recipes);
-
+/* export  */let recipeArray = [];
 for (const recipeTitle in recipes) {
   const recipeIngredients = recipes[recipeTitle];
   createRecipeHTML(recipeTitle, recipeIngredients);
 }
+module.exports = recipeArray;
 
 createIndexHTML(recipeTitles);
-
- 
