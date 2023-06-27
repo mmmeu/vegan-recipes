@@ -43,10 +43,7 @@ li{
 
 .striped-list ul {
   padding: 0; 
-  margin: 0 -1vh;
-  margin-top: 0;
-  margin-bottom: -1vh;
-
+  margin: 0 -1vh -1vh;
 }
 
 .striped-list li {

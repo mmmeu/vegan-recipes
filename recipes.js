@@ -107,11 +107,10 @@ function createIndexHTML(recipeTitles) {
 }
 
 const recipeTitles = Object.keys(recipes);
-/* export  */let recipeArray = [];
+let recipeArray = [];
 for (const recipeTitle in recipes) {
   const recipeIngredients = recipes[recipeTitle];
   createRecipeHTML(recipeTitle, recipeIngredients);
 }
-module.exports = recipeArray;
 
 createIndexHTML(recipeTitles);
