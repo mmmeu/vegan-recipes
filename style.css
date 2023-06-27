@@ -1,5 +1,6 @@
 * {
-  font-size: 4vh;
+  font-size: 3.2vh;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 body {
@@ -7,7 +8,6 @@ body {
   color: #fff;
   font-family: Arial, sans-serif;
   margin: 1vh;
-  display: flex;
   flex-direction: column;
 }
 
@@ -22,6 +22,8 @@ a {
   flex: 1;
   margin: -1vh -1vh 0 -1vh;
   justify-content: center;
+  align-items: center;
+  height: 10vh;
 }
 
 .header2 {
@@ -30,6 +32,7 @@ a {
   flex: 1;
   margin: -1vh;
   padding-left: 1vh;
+  min-height: 10vh;
 }
 
 li{
@@ -37,18 +40,34 @@ li{
   margin-bottom: 10px;
 }
 
-.links ul li:nth-child(even) a {
-  display: flex;
-  background-color: #2f2f2f;
-}
-.links ul li a {
+
+.striped-list ul {
+  padding: 0; 
   margin: 0 -1vh;
+  margin-top: 0;
+  margin-bottom: -1vh;
+
 }
 
-.links ul{
-  display: flex;
-  flex-direction: column;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding: 2px;
+.striped-list li {
+  margin: 0;
+  padding: 10px;
+  list-style-type: none;
+}
+
+.striped-list li:nth-child(odd) {
+  background-color: #222;
+}
+.striped-list li:nth-child(even) {
+  background-color: #282828;
+}
+
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
 }

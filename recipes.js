@@ -55,9 +55,9 @@ function createRecipeHTML(recipeTitle, recipeIngredients) {
       <link rel="stylesheet" href="../style.css">
     </head>
     <body>
-      <div class="header2">
-        <h2><a href="../index.html">⬅️</a> ${recipeTitle}</h2>
-      </div>
+      <header class="header2">
+        <h2><button onclick="window.history.back()">⬅️</button> ${recipeTitle}</h2>
+      </header>
       <ul>
         ${recipeIngredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
       </ul>
@@ -73,7 +73,7 @@ function createRecipeHTML(recipeTitle, recipeIngredients) {
 
 function createIndexHTML(recipeTitles) {
   recipeTitles.sort();
-  const recipeLinks = recipeTitles.map(title => `<li><a href="recipes/${title.replace(/ /g, '-')}.html">•${title}</a></li>`).join('');
+  const recipeLinks = recipeTitles.map(title => `<li><a href="recipes/${title.replace(/ /g, '-')}.html">${title}</a></li>`).join('');
 
   const html = `
   <!DOCTYPE html>
@@ -83,10 +83,10 @@ function createIndexHTML(recipeTitles) {
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div class="header">
+    <header class="header">
       <h1>Vegán Receptek <a href="#" onclick="randomSite();">🎲</a></h1>
-    </div>
-    <div class=links>
+    </header>
+    <div class=striped-list>
       <ul>
         ${recipeLinks}
       </ul>
