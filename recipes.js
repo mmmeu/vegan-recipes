@@ -80,13 +80,14 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags) {
     </head>
     <body>
       <header class="header2">
-        <h2><button onclick="window.history.back()">⬅️</button> ${recipeTitle}</h2>
+        <h2><a href="../index.html">🏠</a><button onclick="window.history.back()">⬅️</button> ${recipeTitle}</h2>
       </header>
       <ul>
         ${recipeIngredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
       </ul>
+      <br>
       <div class="tags">
-        ${recipeTags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}
+        ${recipeTags.map(tag => `<span class="tag"><a href="../tag.html#${tag}">#${tag}</a></span>`).join(' ')}
       </div>
     </body>
     </html>
@@ -145,7 +146,7 @@ function createTagHTML(recipeTitles) {
   const tagSections = uniqueTags.map(tag => {
     const taggedRecipes = recipeTitles.filter(title => recipes[title].tags.includes(tag));
     const recipeLinks = taggedRecipes.map(title => `<li><a href="recipes/${title.replace(/ /g, '-')}.html">${title}</a></li>`).join('');
-    return `<div class="tag-section"><h3>#${tag}</h3><ul>${recipeLinks}</ul></div>`;
+    return `<section id="${tag}"><h3>#${tag}</h3><ul>${recipeLinks}</ul></section>`;
   }).join('');
 
   const html = `
@@ -157,7 +158,7 @@ function createTagHTML(recipeTitles) {
     </head>
     <body>
       <header class="header2">
-      <h2><button onclick="window.history.back()">⬅️</button> Tagek</h2>
+      <h2><a href="index.html">🏠</a><button onclick="window.history.back()">⬅️</button> Tagek</h2>
       </header>
       <div class="tag-list">
         ${tagSections}
