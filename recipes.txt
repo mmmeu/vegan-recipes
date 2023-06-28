@@ -39,6 +39,8 @@ tofu, répa, gomba, csíra, újhagyma, tészta
 #leves
 
 bulgogi
+https://youtu.be/bOpzP0ldlBI
+
 
 brassói
 
@@ -48,7 +50,7 @@ Curry kocka, fagyasztott zöldség, vöröshagyma
 lencsefőzelék
 
 bulgur
-(pinterestes recept)
+**(pinterestes recept)
 
 rizs-tofu- zöldség olasz fűszerrel
 
@@ -91,7 +93,8 @@ daikon leves
 arab bulgur
 
 rukkolás-pisztáciás pesto
-fokhagyma, rukkola, pisztácia, citromlé, olaj (máskor több pisztácia v kevesebb levél legyen)
+fokhagyma, rukkola, pisztácia, citromlé, olaj
+**(máskor több pisztácia v kevesebb levél legyen)
 
 répás-cukkinis krémleves
 #leves
@@ -101,10 +104,10 @@ cukkini, gomba, répa, hagyma
 #tészta
 
 spagetti tahinival
-(Pinterest)
+**(Pinterest)
 
 currys rizs
-(ázsiai tésztás zöldséggel)
+**(ázsiai tésztás zöldséggel)
 
 maradék pesztó mentés
 Paradicsomok, tej+keményítő, tésztavíz, pesztó
@@ -149,7 +152,7 @@ répa cukkini leves
 #leves
 
 dahl
-(pinterest recept)
+**(pinterest recept)
 
 gombapörkölt
 
@@ -172,19 +175,19 @@ mexikói zöldség, zabliszt, zab, fűszerek, keményítő
 cukkini főzelék
 
 répafasírt
-(nosalty magyaros fasírt cukkini nélkül)
+**(nosalty magyaros fasírt cukkini nélkül)
 
 tofu stir fry ázsiai fagyasztott zöldséggel
-(rainbow p youtuberól hoisin szószos)
+**(rainbow p youtuberól hoisin szószos)
 
 falafel fasírtpor borsóval, kukoricával és fűszerekkel feltuningolva
 
 Gombaleves
-(pinterest, erdei stílus)
+**(pinterest, erdei stílus)
 #leves
 
 Gombás-padlizsán tészta
-(youtube, ázsiai)
+**(youtube, ázsiai)
 #tészta
 
 pizza

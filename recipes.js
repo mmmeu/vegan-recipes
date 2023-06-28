@@ -9,26 +9,36 @@ function readRecipesFromFile(filename) {
   let currentTitle = null;
   let currentIngredients = null;
   let currentTags = [];
+  let currentLinks = [];
+  let currentComments = []; // Variable to store the comments
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
 
-    if (line.length === 0) {
+    if (line.startsWith('**')) {
+      currentComments.push(line.slice(2).trim()); // Add the comment to the currentComments array
+    } else if (line.length === 0) {
       if (currentTitle) {
         recipes[currentTitle] = {
           ingredients: currentIngredients ? currentIngredients.split(',') : [],
-          tags: currentTags
+          tags: currentTags,
+          links: currentLinks,
+          comments: currentComments // Store the comments in the recipe object
         };
       }
       currentTitle = null;
       currentIngredients = null;
       currentTags = [];
+      currentLinks = [];
+      currentComments = []; // Reset the comments array
     } else if (!currentTitle) {
       currentTitle = capitalizeFirstLetter(line);
     } else if (!currentIngredients && !currentTags.length) {
       if (line.startsWith('#')) {
         const tagsLine = line.slice(1).replace(/\s/g, '');
         currentTags = tagsLine.split(',');
+      } else if (line.startsWith('http')) {
+        currentLinks.push(line);
       } else {
         currentIngredients = line.toLowerCase();
       }
@@ -36,6 +46,8 @@ function readRecipesFromFile(filename) {
       if (line.startsWith('#')) {
         const tagsLine = line.slice(1).replace(/\s/g, '');
         currentTags = tagsLine.split(',');
+      } else if (line.startsWith('http')) {
+        currentLinks.push(line);
       } else {
         currentIngredients += ',' + line.toLowerCase();
       }
@@ -43,6 +55,8 @@ function readRecipesFromFile(filename) {
       if (line.startsWith('#')) {
         const tagsLine = line.slice(1).replace(/\s/g, '');
         currentTags = currentTags.concat(tagsLine.split(','));
+      } else if (line.startsWith('http')) {
+        currentLinks.push(line);
       } else {
         currentIngredients += ',' + line.toLowerCase();
       }
@@ -52,12 +66,18 @@ function readRecipesFromFile(filename) {
   if (currentTitle) {
     recipes[currentTitle] = {
       ingredients: currentIngredients ? currentIngredients.split(',') : [],
-      tags: currentTags
+      tags: currentTags,
+      links: currentLinks,
+      comments: currentComments
     };
   }
 
   return recipes;
 }
+
+
+
+
 
 function capitalizeFirstLetter(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -66,8 +86,9 @@ function capitalizeFirstLetter(str) {
 const filename = 'recipes.txt';
 const recipes = readRecipesFromFile(filename);
 console.log(recipes);
+console.log(recipes['Bulgogi']);
 
-function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags) {
+function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLinks, recipeComment) {
   const folderPath = 'recipes';
   const filename = `${recipeTitle.replace(/ /g, '-')}.html`;
   const filePath = path.join(folderPath, filename);
@@ -85,10 +106,24 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags) {
       <ul>
         ${recipeIngredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
       </ul>
+      
+      <br>
+      <div class="links">
+        <ol>
+          ${recipeLinks.map(link => `<li><a href="${link}">Link</a></li>`).join('')}
+        </ol>
+      </div>
+      <br>
+      <div class="comments">
+        <ul>
+          ${recipeComment.map(comment => `<li>${comment}</li>`).join('')}
+        </ul>
+      </div>
       <br>
       <div class="tags">
         ${recipeTags.map(tag => `<span class="tag"><a href="../tag.html#${tag}">#${tag}</a></span>`).join(' ')}
       </div>
+
     </body>
     </html>
   `;
@@ -97,6 +132,7 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags) {
   console.log(`Created ${filename}`);
   recipeArray += `${filePath.replace(/\\/g, '/')}', '`;
 }
+
 
 function createIndexHTML(recipeTitles) {
   recipeTitles.sort();
@@ -178,7 +214,9 @@ let recipeArray = [];
 for (const recipeTitle in recipes) {
   const recipeIngredients = recipes[recipeTitle].ingredients;
   const recipeTags = recipes[recipeTitle].tags;
-  createRecipeHTML(recipeTitle, recipeIngredients, recipeTags);
+  const recipeLinks = recipes[recipeTitle].links;
+  const recipeComments = recipes[recipeTitle].comments;
+  createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLinks, recipeComments);
 }
 
 createIndexHTML(recipeTitles);

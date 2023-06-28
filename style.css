@@ -68,3 +68,11 @@ button {
   text-decoration: none;
   cursor: pointer;
 }
+
+.comments ul li {
+  font-size: 2.5vh;
+}
+
+.links {
+  margin-left: 20px;
+}
