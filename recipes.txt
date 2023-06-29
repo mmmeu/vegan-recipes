@@ -2,7 +2,6 @@ bolognai
 szójagranulátum, kevés répa kockázva, vörös és fokhagyma, passata
 #főétel, tészta
 
-
 gyros
 laskagomba, tortilla, zöldségek, fokhagyma, tejföl
 #főétel
@@ -10,8 +9,10 @@ laskagomba, tortilla, zöldségek, fokhagyma, tejföl
 bánh mi
 füstölt tofu, jégsaláta, savanyúság, ubi, pirított hagyma
 
-pad thai szerűség
+pad thai
 tamarind helyett lime+cukor, szójaszósz, répa, retek, hagyma, paprika, kínai kel
+https://youtu.be/1CNavd3G_Qs
+https://youtu.be/gVXDvCI32N8
 
 gochujang tészta
 vegyes sparos gombával, fokhagymával
@@ -24,6 +25,7 @@ sparos konzerv, bébispenót, citromlé, tej +vaj + keményítő + bazsalikom, f
 kimchi leves
 leves alap (senpio), 160g kínai kel, kevés répa+retek, fél v hagyma, 2 fokhagyma, kevés újhagyma, kevés kimchi, guchug, fél l víz, só, ecet, tofu, virsli
 #leves
+https://youtu.be/TlNKhYhaHhU
 
 kukoricás, szójás tejszínes ragu rizzsel
 majoranna+petrezselyem, vaj, tej, keményítő
@@ -33,6 +35,7 @@ frankfurti leves
 
 pho
 tofu, répa, gomba, csíra, újhagyma, tészta
+https://youtu.be/7Q4LVk_7uos
 #leves
 
 ázsiai leves
@@ -41,13 +44,14 @@ tofu, répa, gomba, csíra, újhagyma, tészta
 bulgogi
 https://youtu.be/bOpzP0ldlBI
 
-
 brassói
+https://youtu.be/v_zgOB9YjtY
 
 japán curry
 Curry kocka, fagyasztott zöldség, vöröshagyma
 
 lencsefőzelék
+#főzelék
 
 bulgur
 **(pinterestes recept)
@@ -55,6 +59,7 @@ bulgur
 rizs-tofu- zöldség olasz fűszerrel
 
 kolbászkrém
+#krém
 
 pizza
 kolbászkrém, lilahagyma, paradicsom, kukorica, tofu
@@ -86,9 +91,11 @@ hawaii pizza
 túrós tejfölös tészta
 fél tofu összenyomva, összekeverve fél doboz tejföllel, +só+citromlé, füstölt tofu megsütve + szójaszósz
 #tészta
+https://youtu.be/P4_oUzc4cnk
 
 daikon leves
 #leves
+https://youtu.be/MAUc-bAVymc
 
 arab bulgur
 
@@ -158,7 +165,7 @@ gombapörkölt
 
 ázsiai töltött káposzta
 
-gombás ramen
+gombás ramen 2
 gomba, kukorica, kínai kel, miso, szójaszósz
 
 gulyás leves
@@ -173,12 +180,14 @@ vegán fasírt mexikói zöldséggel
 mexikói zöldség, zabliszt, zab, fűszerek, keményítő
 
 cukkini főzelék
+#főzelék
 
 répafasírt
 **(nosalty magyaros fasírt cukkini nélkül)
 
 tofu stir fry ázsiai fagyasztott zöldséggel
-**(rainbow p youtuberól hoisin szószos)
+**(hoisin szószos)
+https://rainbowplantlife.com/tofu-stir-fry/#recipe
 
 falafel fasírtpor borsóval, kukoricával és fűszerekkel feltuningolva
 
@@ -194,6 +203,17 @@ pizza
 gomba, hagyma, paradicsom, kukorica, kolbászkrém
 
 Tojáskrém
+#krém
 
 Tészta saláta
 #tészta
+
+Carbonara
+https://youtu.be/YGVp4H1bz-g
+https://youtu.be/SIrQtm2f0RA
+#tészta
+
+Gyudon
+https://youtu.be/R4LSokoKal8
+https://youtu.be/RHz4IuwPPH0
+https://youtu.be/4d-ozXuU-Es

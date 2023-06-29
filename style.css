@@ -71,8 +71,9 @@ button {
 
 .comments ul li {
   font-size: 2.5vh;
+  list-style-type: square;
 }
 
 .links {
-  margin-left: 20px;
+  margin-left: 1.5vh;
 }
