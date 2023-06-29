@@ -91,7 +91,7 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
     </head>
     <body>
       <header class="header2">
-        <h2><a href="../index.html">🏠</a><button onclick="window.history.back()">⬅️</button> ${recipeTitle}</h2>
+        <h2><a href="../index.html">🏠</a> <button onclick="window.history.back()">⬅️</button> ${recipeTitle}</h2>
       </header>
       ${hasIngredients ? '<ul>' : ''}
         ${hasIngredients ? recipeIngredients.map(ingredient => `<li>${ingredient}</li>`).join('') : ''}
@@ -182,7 +182,7 @@ function createTagHTML(recipeTitles) {
     </head>
     <body>
       <header class="header2">
-      <h2><a href="index.html">🏠</a><button onclick="window.history.back()">⬅️</button> Tagek</h2>
+      <h2><a href="index.html">🏠</a> <button onclick="window.history.back()">⬅️</button> Tagek</h2>
       </header>
       <div class="tag-list">
         ${tagSections}

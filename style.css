@@ -77,3 +77,7 @@ button {
 .links {
   margin-left: 2vh;
 }
+
+.links ol {
+  margin-left: 1vh;
+}
