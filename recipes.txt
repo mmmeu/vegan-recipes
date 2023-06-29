@@ -1,10 +1,9 @@
 bolognai
 szójagranulátum, kevés répa kockázva, vörös és fokhagyma, passata
-#főétel, tészta
+#tészta
 
 gyros
 laskagomba, tortilla, zöldségek, fokhagyma, tejföl
-#főétel
 
 bánh mi
 füstölt tofu, jégsaláta, savanyúság, ubi, pirított hagyma

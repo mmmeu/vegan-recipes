@@ -158,7 +158,7 @@ function createIndexHTML(recipeTitles) {
 }
 
 function createTagHTML(recipeTitles) {
-  recipeTitles.sort();
+  recipeTitles.sort((a, b) => a.localeCompare(b, 'hu-HU'));
   const allTags = [];
   for (const recipeTitle in recipes) {
     const recipeTags = recipes[recipeTitle].tags;
@@ -207,4 +207,3 @@ for (const recipeTitle in recipes) {
 
 createIndexHTML(recipeTitles);
 createTagHTML(recipeTitles);
-writeRecipesToFile(recipes, filename);
