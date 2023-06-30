@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 
 function readRecipesFromFile(filename) {
@@ -72,10 +72,17 @@ function capitalizeFirstLetter(str) {
 const filename = 'recipes.txt';
 const recipes = readRecipesFromFile(filename);
 console.log(recipes);
-console.log(recipes['Bulgogi']);
+
+const folderPath = 'recipes';
+
+if (!fs.existsSync(folderPath)) {
+  fs.mkdirSync(folderPath);
+}
+else if (fs.existsSync(folderPath)) {
+  fs.emptyDirSync(folderPath);
+}
 
 function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLinks, recipeComment) {
-  const folderPath = 'recipes';
   const filename = `${recipeTitle.replace(/ /g, '-')}.html`;
   const filePath = path.join(folderPath, filename);
   const hasIngredients = recipeIngredients && recipeIngredients.length > 0;
@@ -116,7 +123,7 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
     </body>
     </html>
   `;
-
+  
   fs.writeFileSync(filePath, html, 'utf-8');
   console.log(`Created ${filename}`);
   recipeArray += `${filePath.replace(/\\/g, '/')}', '`;

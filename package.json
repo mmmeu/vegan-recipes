@@ -1,0 +1,16 @@
+{
+  "name": "vegan-recipes",
+  "version": "1.0.0",
+  "description": "In this project, I am going to build a basic vegan recipe website using html.",
+  "main": "recipes.js",
+  "scripts": {
+    "start": "node recipes.js"
+  },
+  "bin": {
+    "recipes": "recipes.js"
+  },
+  
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
