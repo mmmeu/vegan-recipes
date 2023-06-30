@@ -89,6 +89,7 @@ gomba, újhagyma, leveskocka, gyömbér, fokhagyma, szójaszósz, szezámolaj, c
 
 Gombás ramen 2
 gomba, kukorica, kínai kel, miso, szójaszósz
+#leves
 
 Gombás-padlizsán tészta
 **(youtube, ázsiai)
@@ -202,7 +203,7 @@ Tojáskrém
 #krém
 
 Túrós tejfölös tészta
-fél tofu összenyomva, összekeverve fél doboz tejföllel( + só + citromlé), füstölt tofu megsütve + szójaszósz
+fél tofu összenyomva, összekeverve fél doboz tejföllel + só + citromlé, füstölt tofu megsütve + szójaszósz
 #tészta
 https://youtu.be/P4_oUzc4cnk
 
