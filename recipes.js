@@ -99,7 +99,7 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
       
       ${hasLinks ? '<div class="links">' : ''}
         ${hasLinks ? '<ol>' : ''}
-          ${hasLinks ? recipeLinks.map(link => `<li><a href="${link}">link</a></li>`).join('') : ''}
+          ${hasLinks ? recipeLinks.map(link => `<li><a href="${link}" target="_blank">link</a></li>`).join('') : ''}
         ${hasLinks ? '</ol>' : ''}
       ${hasLinks ? '</div>' : ''}
       
