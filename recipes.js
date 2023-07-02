@@ -153,6 +153,7 @@ function createIndexHTML(recipeTitles) {
   <head>
     <title>Vegán Receptek</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   </head>
   <body>
     <header class="header">
