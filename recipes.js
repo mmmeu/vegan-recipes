@@ -67,7 +67,7 @@ function readRecipesFromFile(filename) {
 }
 
 function normalizeLink(link){
-  const normalizedLink = link.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, '-').replace(/,/g, '').replace(/\./g, '').replace(/\'/g, '').replace(/[()]/g, '');
+  const normalizedLink = link.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, '-').replace(/,/g, '').replace(/\./g, '').replace(/\'/g, '').replace(/[()]/g, '').toLowerCase();
   return normalizedLink;
 }
 
