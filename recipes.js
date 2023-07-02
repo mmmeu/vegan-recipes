@@ -106,7 +106,7 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
       
       ${hasLinks ? '<div class="links">' : ''}
         ${hasLinks ? '<ol>' : ''}
-          ${hasLinks ? recipeLinks.map(link => `<li><a href="${link}" target="_blank">link</a></li>`).join('') : ''}
+        ${hasLinks ? recipeLinks.map(link => `<li><a href="${link}" target="_blank">${link.includes('youtu') ? 'YouTube link' : (link.includes('pin') ? 'Pinterest link' : 'link')}</a></li>`).join('') : ''}
         ${hasLinks ? '</ol>' : ''}
       ${hasLinks ? '</div>' : ''}
       
@@ -152,7 +152,7 @@ function createIndexHTML(recipeTitles) {
     <script>
       let recipeArray = ['${recipeArray}'];
       function randomSite() {
-          var i = parseInt(Math.random() * recipeArray.length-1);
+          var i = parseInt(Math.random() * (recipeArray.length-1));
           location.href = recipeArray[i];
       }
   </script>
