@@ -87,3 +87,10 @@ button {
   color: rgb(165, 165, 165);
   /* text-decoration: line-through; */
 }
+
+
+img {
+  width: 100%;
+  height: auto;
+  margin-top: 2vh;
+}

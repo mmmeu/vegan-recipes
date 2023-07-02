@@ -1,6 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
-
+const imgFolderPath = 'images';
 function readRecipesFromFile(filename) {
   const fileContent = fs.readFileSync(filename, 'utf-8');
   const lines = fileContent.split('\n');
@@ -77,7 +77,6 @@ function capitalizeFirstLetter(str) {
 
 const filename = 'recipes.txt';
 const recipes = readRecipesFromFile(filename);
-console.log(recipes);
 
 const folderPath = 'recipes';
 
@@ -88,15 +87,27 @@ else if (fs.existsSync(folderPath)) {
   fs.emptyDirSync(folderPath);
 }
 
+function checkImageExists(folderPath, fileName) {
+  const filePath = `${folderPath}/${fileName}`;
+
+  try {
+    // Check if the file exists
+    fs.accessSync(filePath, fs.constants.F_OK);
+    return true; // File exists
+  } catch (err) {
+    return false; // File doesn't exist
+  }
+}
+
 function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLinks, recipeComments) {
-  console.log(recipeTitle);
   const filename = `${normalizeLink(recipeTitle)}.html`;
-  console.log(filename);
   const filePath = path.join(folderPath, filename);
   const hasIngredients = recipeIngredients && recipeIngredients.length > 0;
   const hasLinks = recipeLinks && recipeLinks.length > 0;
   const hasComments = recipeComments && recipeComments.length > 0;
   const hasTags = recipeTags && recipeTags.length > 0;
+  const imgFileName = `${normalizeLink(recipeTitle)}.png`;
+  const imageExists = checkImageExists(imgFolderPath, imgFileName);
 
   const html = `
     <!DOCTYPE html>
@@ -104,13 +115,17 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
     <head>
       <title>${recipeTitle}</title>
       <link rel="stylesheet" href="../style.css">
+      <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico?">
+      <link rel="apple-touch-icon" sizes="180x180" type="image/png" href="../apple-touch-icon.png">
     </head>
     <body>
       <header class="header2">
         <h2><a href="../index.html">🏠</a> ${recipeTitle}</h2>
       </header>
+      ${imageExists ? `<div class="image"><img src="/${imgFolderPath}/${imgFileName}" alt="recept kép"></div>` : ''}
+
       ${hasIngredients ? '<ul>' : ''}
-        ${hasIngredients ? recipeIngredients.map(ingredient => `<li>${ingredient}</li>`).join('') : ''}
+        ${hasIngredients ? recipeIngredients.map(ingredient =>  `<li>${ingredient}</li>`).join('') : ''}
       ${hasIngredients ? '</ul><br>' : ''}
       
       ${hasLinks ? '<div class="links">' : ''}
@@ -139,13 +154,17 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
 
 function createIndexHTML(recipeTitles) {
   recipeTitles.sort((a, b) => a.localeCompare(b, 'hu-HU'));
+
   const recipeLinks = recipeTitles.map(title => {
     const recipe = recipes[title];
+    const imgFileName = `${normalizeLink(title)}.png`;
+    const imageExists = checkImageExists(imgFolderPath, imgFileName);
     const hasIngredients = recipe.ingredients && recipe.ingredients.length > 0;
     const hasLinks = recipe.links && recipe.links.length > 0;
-    const linkText = hasIngredients || hasLinks ? title : `<span class="empty">${title}</span>`;
+    const linkText = hasIngredients || hasLinks || imageExists ? title : `<span class="empty">${title}</span>`;
     return `<li><a href="recipes/${normalizeLink(title)}.html">${linkText}</a></li>`;
   }).join('');
+
 
   const html = `
   <!DOCTYPE html>
@@ -208,6 +227,8 @@ function createTagHTML(recipeTitles) {
     <head>
       <title>Tagek</title>
       <link rel="stylesheet" href="style.css">
+      <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
+      <link rel="apple-touch-icon" sizes="180x180" type="image/png" href="apple-touch-icon.png">
     </head>
     <body>
       <header class="header2">
