@@ -74,6 +74,6 @@ button {
   list-style-type: square;
 }
 
-.links ol {
-  margin-left: 1vh;
+.links {
+  margin-left: 2vh;
 }
