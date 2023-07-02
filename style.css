@@ -71,9 +71,19 @@ button {
 
 .comments ul li {
   font-size: 3vh;
-  list-style-type: square;
+  list-style-type: none;
+  font-style: italic;
 }
 
 .links {
   margin-left: 2vh;
+}
+
+.tag{
+  font-style: italic;
+}
+
+.empty{
+  color: rgb(165, 165, 165);
+  /* text-decoration: line-through; */
 }

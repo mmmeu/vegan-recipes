@@ -6,64 +6,70 @@ function readRecipesFromFile(filename) {
   const lines = fileContent.split('\n');
   const recipes = {};
 
-  let currentRecipe = null;
+  let currentTitle = null;
+  let currentContent = null;
+  let currentTags = [];
+  let currentLinks = [];
+  let currentComments = [];
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
 
-    if (line.length === 0) {
-      if (currentRecipe) {
-        recipes[currentRecipe.title] = currentRecipe;
-        currentRecipe = null;
+    if (line.startsWith('**')) {
+      currentComments.push(line.slice(2).trim());
+    } else if (line.length === 0) {
+      if (currentTitle) {
+        recipes[currentTitle] = {
+          ingredients: currentContent ? currentContent.split(',') : [],
+          tags: currentTags,
+          links: currentLinks,
+          comments: currentComments
+        };
       }
-    } else if (!currentRecipe) {
-      const [title, ...rest] = line.split(',');
-      currentRecipe = {
-        title: capitalizeFirstLetter(title.trim()),
-        ingredients: [],
-        tags: [],
-        links: [],
-        comments: [],
-      };
-
-      let currentSection = 'ingredients';
-      rest.forEach(item => {
-        if (item.startsWith('#')) {
-          currentSection = 'tags';
-        } else if (item.startsWith('http')) {
-          currentSection = 'links';
-        } else if (item.startsWith('**')) {
-          currentSection = 'comments';
-        } else {
-          if (currentSection === 'ingredients') {
-            const ingredients = item.split(',').map(ingredient => ingredient.trim().toLowerCase());
-            currentRecipe.ingredients.push(...ingredients);
-          } else {
-            currentRecipe[currentSection].push(item.trim());
-          }
-        }
-      });
-    } else {
+      currentTitle = null;
+      currentContent = null;
+      currentTags = [];
+      currentLinks = [];
+      currentComments = [];
+    } else if (!currentTitle) {
+      currentTitle = capitalizeFirstLetter(line);
+    } else if (!currentContent) {
       if (line.startsWith('#')) {
-        currentRecipe.tags.push(...line.slice(1).replace(/\s/g, '').split(','));
+        const tagsLine = line.slice(1).replace(/\s/g, '');
+        currentTags = tagsLine.split('#');
       } else if (line.startsWith('http')) {
-        currentRecipe.links.push(line);
-      } else if (line.startsWith('**')) {
-        currentRecipe.comments.push(line.slice(2).trim());
+        currentLinks.push(line);
       } else {
-        const ingredients = line.split(',').map(ingredient => ingredient.trim().toLowerCase());
-        currentRecipe.ingredients.push(...ingredients);
+        currentContent = line.toLowerCase();
+      }
+    } else if (currentContent) {
+      if (line.startsWith('#')) {
+        const tagsLine = line.slice(1).replace(/\s/g, '');
+        currentTags = currentTags.concat(tagsLine.split('#'));
+      } else if (line.startsWith('http')) {
+        currentLinks.push(line);
+      } else {
+        currentContent += ',' + line.toLowerCase();
       }
     }
   }
 
-  if (currentRecipe) {
-    recipes[currentRecipe.title] = currentRecipe;
+  if (currentTitle) {
+    recipes[currentTitle] = {
+      ingredients: currentContent ? currentContent.split(',') : [],
+      tags: currentTags,
+      links: currentLinks,
+      comments: currentComments
+    };
   }
 
   return recipes;
 }
 
+function normalizeLink(link){
+  const normalizedLink = link.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, '-').replace(/,/g, '').replace(/\./g, '').replace(/\'/g, '').replace(/[()]/g, '').toLowerCase();
+  return normalizedLink;
+}
 
 function capitalizeFirstLetter(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -82,12 +88,15 @@ else if (fs.existsSync(folderPath)) {
   fs.emptyDirSync(folderPath);
 }
 
-function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLinks, recipeComment) {
-  const filename = `${recipeTitle.replace(/ /g, '-')}.html`;
+function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLinks, recipeComments) {
+  console.log(recipeTitle);
+  const filename = `${normalizeLink(recipeTitle)}.html`;
+  console.log(filename);
   const filePath = path.join(folderPath, filename);
   const hasIngredients = recipeIngredients && recipeIngredients.length > 0;
   const hasLinks = recipeLinks && recipeLinks.length > 0;
-  const hasComments = recipeComment && recipeComment.length > 0;
+  const hasComments = recipeComments && recipeComments.length > 0;
+  const hasTags = recipeTags && recipeTags.length > 0;
 
   const html = `
     <!DOCTYPE html>
@@ -95,6 +104,10 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
     <head>
       <title>${recipeTitle}</title>
       <link rel="stylesheet" href="../style.css">
+      <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+      <link rel="manifest" href="../site.webmanifest">
     </head>
     <body>
       <header class="header2">
@@ -102,23 +115,22 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
       </header>
       ${hasIngredients ? '<ul>' : ''}
         ${hasIngredients ? recipeIngredients.map(ingredient => `<li>${ingredient}</li>`).join('') : ''}
-      ${hasIngredients ? '</ul>' : ''}
+      ${hasIngredients ? '</ul><br>' : ''}
       
       ${hasLinks ? '<div class="links">' : ''}
         ${hasLinks ? '<ol>' : ''}
-        ${hasLinks ? recipeLinks.map(link => `<li><a href="${link}" target="_blank">${link.includes('youtu') ? 'YouTube link' : (link.includes('pin') ? 'Pinterest link' : 'link')}</a></li>`).join('') : ''}
+        ${hasLinks ? recipeLinks.map(link => `<li><a href="${link}" target="_blank" style="text-decoration: underline;">${link.includes('youtu') ? 'YouTube link' : (link.includes('pin') ? 'Pinterest link' : 'link')}</a></li>`).join('') : ''}
         ${hasLinks ? '</ol>' : ''}
       ${hasLinks ? '</div>' : ''}
       
       ${hasComments ? '<div class="comments">' : ''}
         ${hasComments ? '<ul>' : ''}
-          ${hasComments ? recipeComment.map(comment => `<li>${comment}</li>`).join('') : ''}
+          ${hasComments ? recipeComments.map(comment => `<li>${comment}</li>`).join('') : ''}
         ${hasComments ? '</ul>' : ''}
       ${hasComments ? '</div>' : ''}
-      <br>
-      <div class="tags">
-        ${recipeTags.map(tag => `<span class="tag"><a href="../tag.html#${tag}">#${tag}</a></span>`).join(' ')}
-      </div>
+      
+        ${!(hasIngredients||hasLinks||hasComments)&&hasTags ? '<br>' : ''}
+        ${hasTags ? recipeTags.map(tag => `<span class="tag"><a href="../tag.html#${normalizeLink(tag)}">#${tag}</a></span>`).join(' '): ''}
 
     </body>
     </html>
@@ -131,7 +143,13 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
 
 function createIndexHTML(recipeTitles) {
   recipeTitles.sort((a, b) => a.localeCompare(b, 'hu-HU'));
-  const recipeLinks = recipeTitles.map(title => `<li><a href="recipes/${title.replace(/ /g, '-')}.html">${title}</a></li>`).join('');
+  const recipeLinks = recipeTitles.map(title => {
+    const recipe = recipes[title];
+    const hasIngredients = recipe.ingredients && recipe.ingredients.length > 0;
+    const hasLinks = recipe.links && recipe.links.length > 0;
+    const linkText = hasIngredients || hasLinks ? title : `<span class="empty">${title}</span>`;
+    return `<li><a href="recipes/${normalizeLink(title)}.html">${linkText}</a></li>`;
+  }).join('');
 
   const html = `
   <!DOCTYPE html>
@@ -139,6 +157,10 @@ function createIndexHTML(recipeTitles) {
   <head>
     <title>Vegán Receptek</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
   </head>
   <body>
     <header class="header">
@@ -176,8 +198,14 @@ function createTagHTML(recipeTitles) {
 
   const tagSections = uniqueTags.map(tag => {
     const taggedRecipes = recipeTitles.filter(title => recipes[title].tags.includes(tag));
-    const recipeLinks = taggedRecipes.map(title => `<li><a href="recipes/${title.replace(/ /g, '-')}.html">${title}</a></li>`).join('');
-    return `<section id="${tag}"><h3>#${tag}</h3><ul>${recipeLinks}</ul></section>`;
+    const recipeLinks = taggedRecipes.map(title => {
+      const recipe = recipes[title];
+      const hasIngredients = recipe.ingredients && recipe.ingredients.length > 0;
+      const hasLinks = recipe.links && recipe.links.length > 0;
+      const linkText = hasIngredients || hasLinks ? title : `<span class="empty">${title}</span>`;
+      return `<li><a href="recipes/${normalizeLink(title)}.html">${linkText}</a></li>`;
+    }).join('');
+    return `<section id="${normalizeLink(tag)}"><h3>#${tag}</h3><ul>${recipeLinks}</ul></section>`;
   }).join('');
 
   const html = `
@@ -186,6 +214,10 @@ function createTagHTML(recipeTitles) {
     <head>
       <title>Tagek</title>
       <link rel="stylesheet" href="style.css">
+      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+      <link rel="manifest" href="/site.webmanifest">
     </head>
     <body>
       <header class="header2">
