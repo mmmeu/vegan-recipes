@@ -194,7 +194,7 @@ function createIndexHTML(recipeTitles) {
   </head>
   <body>
     <header class="header">
-      <p><a href="tag.html">#️⃣</a> Vegán Receptek <a href="#" onclick="randomSite();">🎲</a></p>
+      <p><h1><a href="tag.html">#️⃣</a> Vegán Receptek <a href="#" onclick="randomSite();">🎲</a></h1></p>
     </header>
     <div class=striped-list>
       <ul>

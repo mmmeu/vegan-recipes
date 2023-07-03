@@ -10,7 +10,7 @@ body {
   font-size: 3.2vh;
 }
 
-.header p{
+.header h1{
   font-size: 3.8vh;
 }
 
@@ -70,7 +70,7 @@ a {
 
 .header3 p .icon {
   font-family: 'Salsa';
-  font-size: 3.7vh;
+  font-size: 3.8vh;
 }
 
 li{
