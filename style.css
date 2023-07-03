@@ -1,6 +1,5 @@
-* {
-  font-size: 3.2vh;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+*{
+  font-size: 2.8vh;
 }
 
 body {
@@ -9,6 +8,21 @@ body {
   font-family: Arial, sans-serif;
   margin: 1vh;
   flex-direction: column;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+h1{
+  font-size: 3.4vh;
+}
+
+h2{
+  font-size: 3.2vh;
+  font-family: 'Russo One';
+}
+
+h3{
+  font-size: 3.2vh;
+
 }
 
 a {
@@ -16,23 +30,45 @@ a {
   text-decoration: none;
 }
 
+.header,
+.header2,
+.header3 {
+  background: #1c2d46;
+  font-size: 1.7vh;
+}
 .header {
-  background: #1F2937;
   display: flex;
   flex: 1;
   margin: -1vh -1vh 0 -1vh;
   justify-content: center;
   align-items: center;
-  height: 10vh;
+  height: 11.3vh;
+  font-family: 'Salsa';
 }
 
 .header2 {
-  background: #1F2937;
   display: flex;
   flex: 1;
   margin: -1vh;
   padding-left: 1vh;
-  min-height: 10vh;
+  min-height: 11.3vh;
+  align-items: center;
+  font-family: 'Russo One';
+}
+
+.header3 {
+  display: flex;
+  flex: 1;
+  margin: -1vh;
+  padding-left: 1vh;
+  height: 11.3vh;
+  align-items: center;
+  font-size: 3.4vh;
+}
+
+.header3 h2 .icon {
+  font-family: 'Salsa';
+  font-size: 3.4vh;
 }
 
 li{
@@ -44,6 +80,7 @@ li{
 .striped-list ul {
   padding: 0; 
   margin: 0 -1vh -1vh;
+  font-family: 'Russo One';
 }
 
 .striped-list li {
@@ -83,14 +120,39 @@ button {
   font-style: italic;
 }
 
+.tag-list{
+  font-family: 'Russo One';
+}
+
+
 .empty{
-  color: rgb(165, 165, 165);
+  color: rgba(165, 165, 165, 0.508);
   /* text-decoration: line-through; */
 }
 
 
-img {
+.image img {
   width: 100%;
   height: auto;
   margin-top: 2vh;
+  border-radius: 0.8vh;
+}
+
+footer{
+  text-align: center;
+  margin-top: 3vh;
+  color: rgba(165, 165, 165, 0.508);
+}
+
+.icon img{
+  max-height: 5vh;
+  border-radius: 0.8vh;
+  margin-right: 1vh;
+  min-width: 5vh;
+}
+
+.icon{
+  display: flex;
+  flex: 1;
+  align-items: center;
 }

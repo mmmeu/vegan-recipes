@@ -1,3 +1,4 @@
+const { link } = require('fs');
 const fs = require('fs-extra');
 const path = require('path');
 const imgFolderPath = 'images';
@@ -89,13 +90,11 @@ else if (fs.existsSync(folderPath)) {
 
 function checkImageExists(folderPath, fileName) {
   const filePath = `${folderPath}/${fileName}`;
-
   try {
-    // Check if the file exists
     fs.accessSync(filePath, fs.constants.F_OK);
-    return true; // File exists
+    return true;
   } catch (err) {
-    return false; // File doesn't exist
+    return false;
   }
 }
 
@@ -115,14 +114,21 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
     <head>
       <title>${recipeTitle}</title>
       <link rel="stylesheet" href="../style.css">
+      <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+      <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+      <link href='https://fonts.googleapis.com/css?family=Russo One' rel='stylesheet'>
+      <link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
       <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico?">
-      <link rel="apple-touch-icon" sizes="180x180" type="image/png" href="../apple-touch-icon.png">
+      <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+      <link rel="manifest" href="../site.webmanifest">
     </head>
     <body>
       <header class="header2">
-        <h2><a href="../index.html">🏠</a> ${recipeTitle}</h2>
+        <h2><span class="icon"><a href="../index.html"><img src="../apple-touch-icon.png"></a> ${recipeTitle}</span></h2>
       </header>
-      ${imageExists ? `<div class="image"><img src="/${imgFolderPath}/${imgFileName}" alt="recept kép"></div>` : ''}
+      ${imageExists ? `<div class="image"><img src="/${imgFolderPath}/${imgFileName}"></div>` : ''}
 
       ${hasIngredients ? '<ul>' : ''}
         ${hasIngredients ? recipeIngredients.map(ingredient =>  `<li>${ingredient}</li>`).join('') : ''}
@@ -153,14 +159,18 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
 }
 
 function createIndexHTML(recipeTitles) {
-  recipeTitles.sort((a, b) => a.localeCompare(b, 'hu-HU'));
-
+  let counterAll = 0;
+  let counterFull = 0;
   const recipeLinks = recipeTitles.map(title => {
     const recipe = recipes[title];
     const imgFileName = `${normalizeLink(title)}.png`;
     const imageExists = checkImageExists(imgFolderPath, imgFileName);
     const hasIngredients = recipe.ingredients && recipe.ingredients.length > 0;
     const hasLinks = recipe.links && recipe.links.length > 0;
+    if (hasIngredients || hasLinks || imageExists){
+      counterFull++;
+    }
+    counterAll++;
     const linkText = hasIngredients || hasLinks || imageExists ? title : `<span class="empty">${title}</span>`;
     return `<li><a href="recipes/${normalizeLink(title)}.html">${linkText}</a></li>`;
   }).join('');
@@ -172,8 +182,15 @@ function createIndexHTML(recipeTitles) {
   <head>
     <title>Vegán Receptek</title>
     <link rel="stylesheet" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Russo One' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
-    <link rel="apple-touch-icon" sizes="180x180" type="image/png" href="apple-touch-icon.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
   </head>
   <body>
     <header class="header">
@@ -184,6 +201,7 @@ function createIndexHTML(recipeTitles) {
         ${recipeLinks}
       </ul>
     </div>
+    <footer>${counterFull}/${counterAll}</footer>
     <script>
       let recipeArray = ['${recipeArray}'];
       function randomSite() {
@@ -200,7 +218,6 @@ function createIndexHTML(recipeTitles) {
 }
 
 function createTagHTML(recipeTitles) {
-  recipeTitles.sort((a, b) => a.localeCompare(b, 'hu-HU'));
   const allTags = [];
   for (const recipeTitle in recipes) {
     const recipeTags = recipes[recipeTitle].tags;
@@ -208,6 +225,17 @@ function createTagHTML(recipeTitles) {
   }
 
   const uniqueTags = Array.from(new Set(allTags)).sort();
+  let taggedLinks = {};
+  const tagSections2 = uniqueTags.map(tag => {
+    const taggedRecipes = recipeTitles.filter(title => recipes[title].tags.includes(tag));
+    //console.log(taggedRecipes);
+    taggedLinks[tag] = taggedRecipes;
+    console.log(taggedLinks[tag][0]);
+      var value = taggedLinks[tag];
+      for (var i = 0; i < value.length; i++) {
+        value[i] = `'${folderPath}/${normalizeLink(value[i])}.html'`;
+    console.log(taggedLinks[tag]);
+}});
 
   const tagSections = uniqueTags.map(tag => {
     const taggedRecipes = recipeTitles.filter(title => recipes[title].tags.includes(tag));
@@ -215,10 +243,21 @@ function createTagHTML(recipeTitles) {
       const recipe = recipes[title];
       const hasIngredients = recipe.ingredients && recipe.ingredients.length > 0;
       const hasLinks = recipe.links && recipe.links.length > 0;
-      const linkText = hasIngredients || hasLinks ? title : `<span class="empty">${title}</span>`;
+      const imgFileName = `${normalizeLink(title)}.png`;
+      const imageExists = checkImageExists(imgFolderPath, imgFileName);
+      const linkText = hasIngredients || hasLinks || imageExists ? title : `<span class="empty">${title}</span>`;
       return `<li><a href="recipes/${normalizeLink(title)}.html">${linkText}</a></li>`;
     }).join('');
-    return `<section id="${normalizeLink(tag)}"><h3>#${tag}</h3><ul>${recipeLinks}</ul></section>`;
+    return `<section id="${normalizeLink(tag)}"><h3>#${tag} <a href="#" onclick="${normalizeLink(tag)}RandomSite();">🎲</a></h3><ul>${recipeLinks}</ul></section>
+    
+    <script>
+      let ${normalizeLink(tag)}Links = [${taggedLinks[tag]}];
+      function ${normalizeLink(tag)}RandomSite() {
+          var i = parseInt(Math.random() * (${normalizeLink(tag)}Links.length));
+          location.href = ${normalizeLink(tag)}Links[i];
+      }
+    </script>
+    `;
   }).join('');
 
   const html = `
@@ -227,12 +266,19 @@ function createTagHTML(recipeTitles) {
     <head>
       <title>Tagek</title>
       <link rel="stylesheet" href="style.css">
+      <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+      <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+      <link href='https://fonts.googleapis.com/css?family=Russo One' rel='stylesheet'>
+      <link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
       <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
-      <link rel="apple-touch-icon" sizes="180x180" type="image/png" href="apple-touch-icon.png">
+      <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+      <link rel="manifest" href="site.webmanifest">
     </head>
     <body>
-      <header class="header2">
-      <h2><a href="index.html">🏠</a> Címkék</h2>
+      <header class="header3">
+      <h2><span class="icon"><a href="../index.html"><img src="../apple-touch-icon.png"></a> Címkék</span></h2>
       </header>
       <div class="tag-list">
         ${tagSections}
@@ -246,14 +292,38 @@ function createTagHTML(recipeTitles) {
 }
 
 const recipeTitles = Object.keys(recipes);
+recipeTitles.sort((a, b) => a.localeCompare(b, 'hu-HU'));
 let recipeArray = [];
+let data = '';
 for (const recipeTitle in recipes) {
   const recipeIngredients = recipes[recipeTitle].ingredients;
   const recipeTags = recipes[recipeTitle].tags;
   const recipeLinks = recipes[recipeTitle].links;
   const recipeComments = recipes[recipeTitle].comments;
+  const hasIngredients = recipeIngredients && recipeIngredients.length > 0;
+  const hasLinks = recipeLinks && recipeLinks.length > 0;
+  const hasComments = recipeComments && recipeComments.length > 0;
+  const hasTags = recipeTags && recipeTags.length > 0;
   createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLinks, recipeComments);
+  data += `${recipeTitle}\n`;
+  if (hasIngredients){
+    data += `${recipeIngredients}\n`;
+  }if (hasLinks){
+    data += `${recipeLinks.map(link => `${link}\n`).join('')}`;
+  }if (hasComments){
+    data += `${recipeComments.map(comment => `**${comment}\n`).join('')}`;
+  }if (hasTags){
+    data += `${recipeTags.map(tag => `#${tag}\n`).join('')}`;
+  } data += `\n`;
 }
+
+fs.writeFile(filename, data, (err) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  console.log('Data written to file successfully.');
+});
 
 createIndexHTML(recipeTitles);
 createTagHTML(recipeTitles);
