@@ -126,7 +126,7 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
     </head>
     <body>
       <header class="header2">
-        <h2><span class="icon"><a href="../index.html"><img src="../apple-touch-icon.png"></a> ${recipeTitle}</span></h2>
+        <p><span class="icon"><a href="../index.html"><img src="../apple-touch-icon.png"></a> ${recipeTitle}</span></p>
       </header>
       ${imageExists ? `<div class="image"><img src="/${imgFolderPath}/${imgFileName}"></div>` : ''}
 
