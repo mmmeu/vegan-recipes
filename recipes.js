@@ -248,7 +248,7 @@ function createTagHTML(recipeTitles) {
       const linkText = hasIngredients || hasLinks || imageExists ? title : `<span class="empty">${title}</span>`;
       return `<li><a href="recipes/${normalizeLink(title)}.html">${linkText}</a></li>`;
     }).join('');
-    return `<section id="${normalizeLink(tag)}"><h3>#${tag} <a href="#" onclick="${normalizeLink(tag)}RandomSite();">🎲</a></h3><ul>${recipeLinks}</ul></section>
+    return `<section id="${normalizeLink(tag)}"><p>#${tag} <a href="#" onclick="${normalizeLink(tag)}RandomSite();">🎲</a></p><ul>${recipeLinks}</ul></section>
     
     <script>
       let ${normalizeLink(tag)}Links = [${taggedLinks[tag]}];
@@ -278,7 +278,7 @@ function createTagHTML(recipeTitles) {
     </head>
     <body>
       <header class="header3">
-      <h2><span class="icon"><a href="../index.html"><img src="../apple-touch-icon.png"></a> Címkék</span></h2>
+      <h2><span class="icon"><a href="index.html"><img src="apple-touch-icon.png"></a> Címkék</span></h2>
       </header>
       <div class="tag-list">
         ${tagSections}
