@@ -10,7 +10,7 @@ body {
   font-size: 3.2vh;
 }
 
-h1{
+header p{
   font-size: 3.4vh;
 }
 
@@ -44,7 +44,7 @@ a {
   margin: -1vh -1vh 0 -1vh;
   justify-content: center;
   align-items: center;
-  height: 11.4vh;
+  height: 12vh;
   font-family: 'Salsa';
 }
 
@@ -53,7 +53,7 @@ a {
   flex: 1;
   margin: -1vh;
   padding-left: 1vh;
-  min-height: 11.4vh;
+  min-height: 12vh;
   align-items: center;
   font-family: 'Russo One';
 }
@@ -63,12 +63,12 @@ a {
   flex: 1;
   margin: -1vh;
   padding-left: 1vh;
-  height: 11.4vh;
+  height: 12vh;
   align-items: center;
   font-size: 3.4vh;
 }
 
-.header3 h2 .icon {
+.header3 p .icon {
   font-family: 'Salsa';
   font-size: 3.4vh;
 }
@@ -147,6 +147,7 @@ footer{
   text-align: center;
   margin-top: 3vh;
   color: rgba(165, 165, 165, 0.508);
+  font-family: 'Russo One';
 }
 
 .icon img{

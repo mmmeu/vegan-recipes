@@ -194,7 +194,7 @@ function createIndexHTML(recipeTitles) {
   </head>
   <body>
     <header class="header">
-      <h1><a href="tag.html">#️⃣</a> Vegán Receptek <a href="#" onclick="randomSite();">🎲</a></h1>
+      <p><a href="tag.html">#️⃣</a> Vegán Receptek <a href="#" onclick="randomSite();">🎲</a></p>
     </header>
     <div class=striped-list>
       <ul>
@@ -278,7 +278,7 @@ function createTagHTML(recipeTitles) {
     </head>
     <body>
       <header class="header3">
-      <h2><span class="icon"><a href="index.html"><img src="apple-touch-icon.png"></a> Címkék</span></h2>
+      <p><span class="icon"><a href="index.html"><img src="apple-touch-icon.png"></a> Címkék</span></p>
       </header>
       <div class="tag-list">
         ${tagSections}
