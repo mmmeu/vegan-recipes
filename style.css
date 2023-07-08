@@ -1,8 +1,7 @@
 body {
   background-color: #1c2d46;
   color: #fff;
-  font-family: Arial, sans-serif;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Chivo', sans-serif;
   font-size: 5vw;
   margin: 0;
   min-height: 100vh;
@@ -35,8 +34,7 @@ body {
 }
 
 .header2 p {
-  font-family: 'Chivo';
-  font-weight: bold;
+  font-family: 'Russo One';
 }
 
 h3 {
@@ -74,7 +72,7 @@ a {
   padding-left: 1.5vw;
   min-height: 18vw;
   align-items: center;
-  font-family: 'Chivo';
+  font-family: 'Russo One';
   flex: 0 0 5vw;
 }
 
@@ -88,9 +86,8 @@ a {
 }
 
 .header3 p .icon {
-  font-family: 'Chivo';
+  font-family: 'Russo One';
   font-size: 6vw;
-  font-weight: bold;
 }
 
 li {
@@ -101,8 +98,8 @@ li {
 .striped-list ul {
   padding: 0;
   margin: 0 0 -1.5vw;
-  font-family: 'Chivo';
-  font-size: 5vw;
+  font-family: 'Russo One';
+  font-size: 4.5vw;
 }
 
 .striped-list li {
@@ -135,22 +132,26 @@ button {
   font-style: italic;
 }
 
+.links {
+  margin-left: 3vw;
+}
+
 .tag {
   font-style: italic;
   
 }
 
 .tag-list {
-  font-family: 'Chivo';
+  font-family: 'Russo One';
   margin: 0 2vw;
 }
 
 .tag-list p {
-  font-size: 6vw;
+  font-size: 5.5vw;
 }
 
 .tag-list ul {
-  font-size: 5vw;
+  font-size: 4.5vw;
 }
 
 .empty {
