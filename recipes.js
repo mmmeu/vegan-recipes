@@ -228,13 +228,10 @@ function createTagHTML(recipeTitles) {
   let taggedLinks = {};
   const tagSections2 = uniqueTags.map(tag => {
     const taggedRecipes = recipeTitles.filter(title => recipes[title].tags.includes(tag));
-    //console.log(taggedRecipes);
     taggedLinks[tag] = taggedRecipes;
-    console.log(taggedLinks[tag][0]);
       var value = taggedLinks[tag];
       for (var i = 0; i < value.length; i++) {
         value[i] = `'${folderPath}/${normalizeLink(value[i])}.html'`;
-    console.log(taggedLinks[tag]);
 }});
 
   const tagSections = uniqueTags.map(tag => {
