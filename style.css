@@ -60,7 +60,7 @@ a {
 .header {
   display: flex;
   flex: 1;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   height: 18vw;
   font-family: 'Salsa';
@@ -180,6 +180,7 @@ footer {
   font-size: 6.75vw;
   justify-self: center;
   align-self: center;
+  padding: 0 15px;
 }
 
 .icon img {
