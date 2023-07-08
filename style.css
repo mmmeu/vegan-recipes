@@ -6,7 +6,6 @@ body {
   flex-direction: column;
   font-family: 'Roboto', sans-serif;
   font-size: 5vw;
-  width: 100vw;
 }
 
 .header h1 {
