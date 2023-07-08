@@ -1,7 +1,3 @@
-Ákos tészta
-egy kis zacskó tészta, 2 fej (lila)hagyma - csíkokra vágva, 3-4 gerezd fokhagyma – apróra vágva, 1 evőkanál sómentes ételízesítő, kb. 15 szem koktélparadicsom – félbe vágva, egy kis marék friss bazsalikom levél – vagy szárított egy evőkanál, só, bors, 1-2 evőkanál sörélesztőpehely (elhagyható), tahini (elhagyható), kb. 7dl víz
-#tészta
-
 Aloo curry
 
 Arab bulgur
@@ -45,11 +41,11 @@ https://youtu.be/SIrQtm2f0RA
 
 Chilis bab
 
-Cukkini főzelék
-#főzelék
-
 Cukkini pörkölt
 cukkini, hagyma, paprika, paradicsom, pirospaprika, petrezselyem, majoranna, kakukkfű, só, bors
+
+Cukkinifőzelék
+#főzelék
 
 Cukkinis bébispenótos pesto
 
@@ -213,6 +209,10 @@ Vegán fasírt mexikói zöldséggel
 mexikói zöldség, zabliszt, zab, fűszerek, keményítő
 
 Vegán minestrone
+
+Villám tészta
+https://youtu.be/Su1QMinprIc
+#tészta
 
 Zöld curry tofuval
 

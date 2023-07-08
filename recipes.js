@@ -116,8 +116,7 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
       <link rel="stylesheet" href="../style.css">
       <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
       <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-      <link href='https://fonts.googleapis.com/css?family=Russo One' rel='stylesheet'>
-      <link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
+      <link href='https://fonts.googleapis.com/css?family=Chivo' rel='stylesheet'>
       <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico?">
       <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
       <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -184,8 +183,7 @@ function createIndexHTML(recipeTitles) {
     <link rel="stylesheet" href="style.css">
     <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-    <link href='https://fonts.googleapis.com/css?family=Russo One' rel='stylesheet'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Chivo' rel='stylesheet'>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
     <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -265,8 +263,7 @@ function createTagHTML(recipeTitles) {
       <link rel="stylesheet" href="style.css">
       <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
       <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-      <link href='https://fonts.googleapis.com/css?family=Russo One' rel='stylesheet'>
-      <link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
+      <link href='https://fonts.googleapis.com/css?family=Chivo' rel='stylesheet'>
       <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
       <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
       <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -291,8 +288,20 @@ function createTagHTML(recipeTitles) {
 const recipeTitles = Object.keys(recipes);
 recipeTitles.sort((a, b) => a.localeCompare(b, 'hu-HU'));
 let recipeArray = [];
+
+// Convert dictionary into an array of key-value pairs
+const dictionaryArray = Object.entries(recipes);
+
+// Sort the array based on the keys
+dictionaryArray.sort((a, b) => a[0].localeCompare(b[0], 'hu-HU'));
+
+// Create a new sorted dictionary object
+const sortedDictionary = {};
+for (const [key, value] of dictionaryArray) {
+  sortedDictionary[key] = value;
+}
 let data = '';
-for (const recipeTitle in recipes) {
+for (const recipeTitle in sortedDictionary) {
   const recipeIngredients = recipes[recipeTitle].ingredients;
   const recipeTags = recipes[recipeTitle].tags;
   const recipeLinks = recipes[recipeTitle].links;
