@@ -124,9 +124,12 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
       <link rel="manifest" href="../site.webmanifest">
     </head>
     <body>
+    <div class="container">
       <header class="header2">
         <p><span class="icon"><a href="../index.html"><img src="../apple-touch-icon.png"></a> ${recipeTitle}</span></p>
       </header>
+      <div class="content">
+      <div class="content2">
       ${imageExists ? `<div class="image"><img src="/${imgFolderPath}/${imgFileName}"></div>` : ''}
 
       ${hasIngredients ? '<ul>' : ''}
@@ -148,6 +151,9 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
         ${!(hasIngredients||hasLinks||hasComments)&&hasTags ? '<br>' : ''}
         ${hasTags ? recipeTags.map(tag => `<span class="tag"><a href="../tag.html#${normalizeLink(tag)}">#${tag}</a></span>`).join(' '): ''}
 
+        </div>
+        </div>
+        </div>
     </body>
     </html>
   `;
@@ -191,15 +197,19 @@ function createIndexHTML(recipeTitles) {
     <link rel="manifest" href="site.webmanifest">
   </head>
   <body>
+  <div class="container">
     <header class="header">
       <div class="emoji"><a href="tag.html">#️⃣</a></div><div><p><h1>Vegán Receptek</h1></p></div><div class="emoji"><a href="#" onclick="randomSite();">🎲</a></div>
     </header>
+    <div class="content">
     <div class=striped-list>
       <ul>
         ${recipeLinks}
       </ul>
     </div>
     <footer>${counterFull}/${counterAll}</footer>
+    </div>
+    </div>
     <script>
       let recipeArray = ['${recipeArray}'];
       function randomSite() {
@@ -271,12 +281,16 @@ function createTagHTML(recipeTitles) {
       <link rel="manifest" href="site.webmanifest">
     </head>
     <body>
+    <div class="container">
       <header class="header3">
       <p><span class="icon"><a href="index.html"><img src="apple-touch-icon.png"></a> Címkék</span></p>
       </header>
+      <div class="content">
       <div class="tag-list">
         ${tagSections}
-      </div>
+        </div>
+        </div>
+        </div>
     </body>
     </html>
   `;
