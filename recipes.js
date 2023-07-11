@@ -244,6 +244,10 @@ function createTagHTML(recipeTitles) {
         value[i] = `'${folderPath}/${normalizeLink(value[i])}.html'`;
 }});
 
+  const jump = uniqueTags.map(tag => {
+    return `<div><a href="#${normalizeLink(tag)}">#${tag}</a></div>`;
+  }).join('');
+
   const tagSections = uniqueTags.map(tag => {
     const taggedRecipes = recipeTitles.filter(title => recipes[title].tags.includes(tag));
     const recipeLinks = taggedRecipes.map(title => {
@@ -289,6 +293,9 @@ function createTagHTML(recipeTitles) {
       <p><span class="icon"><a href="index.html"><img src="apple-touch-icon.png"></a> Címkék</span></p>
       </header>
       <div class="content">
+      <div class="jump">
+      ${jump}
+      </div>
       <div class="tag-list">
         ${tagSections}
         </div>

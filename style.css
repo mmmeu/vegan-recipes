@@ -136,8 +136,9 @@ button {
   margin-left: 3vw;
 }
 
-.tag {
+.tag a {
   font-style: italic;
+  color: cadetblue;
   
 }
 
@@ -148,10 +149,12 @@ button {
 
 .tag-list p {
   font-size: 5.5vw;
+  margin-top: 0;
 }
 
 .tag-list ul {
   font-size: 4.5vw;
+  margin-bottom: 7vw;
 }
 
 .empty {
@@ -200,4 +203,20 @@ footer {
 section ul {
   margin-top: -1.5vw;
   margin-bottom: 3vw;
+}
+
+.jump {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin: 3vw 2vw 0 ;
+  font-style: italic;
+}
+
+.jump div{
+  margin: 0 2vw 2vw 2vw;
+}
+
+.jump a {
+  color: cadetblue;
 }
