@@ -275,7 +275,7 @@ function createTagHTML(recipeTitles) {
     <!DOCTYPE html>
     <html>
     <head>
-      <title>Tagek</title>
+      <title>Címkék</title>
       <link rel="stylesheet" href="style.css">
       <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
       <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
