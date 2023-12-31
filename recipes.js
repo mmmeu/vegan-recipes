@@ -103,6 +103,15 @@ else if (fs.existsSync(folderPath)) {
   fs.emptyDirSync(folderPath);
 }
 
+// Create a new folder for ingredient pages
+const ingredientFolderPath = 'ingredients';
+if (!fs.existsSync(ingredientFolderPath)) {
+  fs.mkdirSync(ingredientFolderPath);
+}
+else if (fs.existsSync(ingredientFolderPath)) {
+  fs.emptyDirSync(ingredientFolderPath);
+}
+
 function checkImageExists(folderPath, fileName) {
   const filePath = `${folderPath}/${fileName}`;
   try {
@@ -416,11 +425,7 @@ function createIngredientsHTML(recipeTitles) {
       </html>
     `;
 
-    // Create a new folder for ingredient pages
-    const ingredientFolderPath = 'ingredients';
-    if (!fs.existsSync(ingredientFolderPath)) {
-      fs.mkdirSync(ingredientFolderPath);
-    }
+  
 
     // Write the HTML content to the ingredient file
     const ingredientFilePath = path.join(ingredientFolderPath, `${normalizeLink(cleanIngredientName)}.html`);
