@@ -12,7 +12,7 @@ body,
 .header,
 .header2,
 .header3 {
-  background: #12260f;
+  background: #1e2f37;
 }
 
 .container{
@@ -192,7 +192,7 @@ footer {
 }
 
 .emoji {
-  font-size: 6.75vw;
+  font-size: 7.5vw;
   justify-self: center;
   align-self: center;
   padding: 0 4vw;
@@ -215,6 +215,10 @@ footer {
 section ul {
   margin-top: -1.5vw;
   margin-bottom: 3vw;
+}
+
+.content .tag-list section ul {
+  margin-top: -10.5vw;
 }
 
 .jump {
