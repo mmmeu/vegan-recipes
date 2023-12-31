@@ -6,10 +6,14 @@ body {
   margin: 0;
   min-height: 100vh;
   display: flex;
-  background-color: #12260f;
 }
 
-
+body,
+.header,
+.header2,
+.header3 {
+  background: #12260f;
+}
 
 .container{
   background-color: #222222;
@@ -57,7 +61,6 @@ a {
 .header2,
 .header3 {
   font-size: 2.55vw;
-  background-color: #12260f;
 }
 
 .header {
@@ -228,4 +231,9 @@ section ul {
 
 .jump a {
   color: cadetblue;
+}
+
+.content section ul{
+  padding-top: 5vw;
+  padding-left: 7vw;
 }
