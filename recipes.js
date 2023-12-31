@@ -178,19 +178,21 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
         ${hasIngredients ? ingredientLinks.map(ingredientLinks =>  `<li>${ingredientLinks}</li>`).join('') : ''}
       ${hasIngredients ? '</ul><br>' : ''}
       
+      ${hasIngredients&&hasLinks ? '<hr>' : ''}
       ${hasLinks ? '<div class="links">' : ''}
         ${hasLinks ? '<ol>' : ''}
         ${hasLinks ? recipeLinks.map(link => `<li><a href="${link}" target="_blank" style="text-decoration: underline; color: #8057a4;">${link.includes('youtu') ? 'YouTube link' : (link.includes('pin') ? 'Pinterest link' : 'link')}</a></li>`).join('') : ''}
         ${hasLinks ? '</ol>' : ''}
       ${hasLinks ? '</div>' : ''}
       
-      ${hasComments ? '<div class="comments">' : ''}
+      ${hasComments ? '<hr><div class="comments">' : ''}
         ${hasComments ? '<ul>' : ''}
           ${hasComments ? recipeComments.map(comment => `<li>${comment}</li>`).join('') : ''}
         ${hasComments ? '</ul>' : ''}
       ${hasComments ? '</div>' : ''}
       
         ${!(hasIngredients||hasLinks||hasComments)&&hasTags ? '<br>' : ''}
+        ${(hasIngredients||hasLinks||hasComments)&&hasTags ? '<hr>' : ''}
         ${hasTags ? recipeTags.map(tag => `<span class="tag"><a href="../tag.html#${normalizeLink(tag)}">#${tag}</a></span>`).join(' '): ''}
 
         </div>

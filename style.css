@@ -137,16 +137,21 @@ button {
   cursor: pointer;
 }
 
+
 .comments ul li {
   font-size: 4.5vw;
-  list-style-type: none;
+  list-style-type:square;
   font-style: italic;
+  color:tan;
 }
 
 .links {
   margin-left: 3vw;
 }
 
+.content section ul li {
+  font-family: 'Russo One';
+}
 
 .tag a {
   font-style: italic;
