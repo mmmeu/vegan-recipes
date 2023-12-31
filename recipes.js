@@ -15,7 +15,7 @@ function readRecipesFromFile(filename) {
   let currentComments = [];
 
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
+    const line = lines[i].trim(); // Trim leading and trailing whitespace
 
     if (line.startsWith('**')) {
       // Handle comments
@@ -53,7 +53,6 @@ function readRecipesFromFile(filename) {
         currentLinks.push(linkedRecipeTitle);
       } else {
         currentContent = line.toLowerCase();
-        
       }
     } else if (currentContent) {
       // Handle additional content
@@ -81,6 +80,7 @@ function readRecipesFromFile(filename) {
 
   return recipes;
 }
+
 
 function normalizeLink(link){
   const normalizedLink = link.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, '-').replace(/,/g, '').replace(/\./g, '').replace(/\'/g, '').replace(/[()]/g, '').replace(/^-/, '').toLowerCase();
@@ -126,9 +126,12 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
 
   const ingredientLinks = hasIngredients
     ? recipeIngredients.map((ingredient) => {
-        if (ingredient.startsWith('[[') && ingredient.endsWith(']]')) {
+        ingredient = ingredient.trim();
+        if (ingredient.endsWith(']]')) {
           const linkedRecipeTitle = ingredient.slice(2, -2).trim();
-          return `<a href="../recipes/${normalizeLink(linkedRecipeTitle)}.html" style="text-decoration: underline; color: #8057a4;">${linkedRecipeTitle}</a>`;
+          const cleanIngredientName = ingredient.replace(/\b\d+(\.\d+)?(?:[kKgGmMlL]|gramm?|liter?)?\b/g, '').replace(/\((.*?)\)/g, '').replace(new RegExp(`\\b(?:${measurements.join('|')})\\b`, 'gi'), '').replace('[[', '').replace(']]', '').trim();
+          const normalizedIngredient = normalizeLink(cleanIngredientName);
+          return `<a href="../ingredients/${normalizedIngredient}.html">${linkedRecipeTitle}</a> <a href="../recipes/${normalizeLink(linkedRecipeTitle)}.html" style="text-decoration: underline; color: #8057a4;">(link)</a>`;
         } else {
           const cleanIngredientName = ingredient.replace(/\b\d+(\.\d+)?(?:[kKgGmMlL]|gramm?|liter?)?\b/g, '').replace(/\((.*?)\)/g, '').replace(new RegExp(`\\b(?:${measurements.join('|')})\\b`, 'gi'), '').replace('[[', '').replace(']]', '').trim();
           const normalizedIngredient = normalizeLink(cleanIngredientName);
@@ -168,7 +171,7 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
       
       ${hasLinks ? '<div class="links">' : ''}
         ${hasLinks ? '<ol>' : ''}
-        ${hasLinks ? recipeLinks.map(link => `<li><a href="${link}" target="_blank" style="text-decoration: underline;">${link.includes('youtu') ? 'YouTube link' : (link.includes('pin') ? 'Pinterest link' : 'link')}</a></li>`).join('') : ''}
+        ${hasLinks ? recipeLinks.map(link => `<li><a href="${link}" target="_blank" style="text-decoration: underline; color: #8057a4;">${link.includes('youtu') ? 'YouTube link' : (link.includes('pin') ? 'Pinterest link' : 'link')}</a></li>`).join('') : ''}
         ${hasLinks ? '</ol>' : ''}
       ${hasLinks ? '</div>' : ''}
       

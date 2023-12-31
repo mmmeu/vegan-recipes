@@ -180,13 +180,13 @@ https://youtu.be/7Q4LVk_7uos
 #leves
 
 Pizza 1
-kolbászkrém, lilahagyma, paradicsom, kukorica, tofu
+lilahagyma, paradicsom, kukorica, tofu, [[kolbászkrém]]
 
 Pizza 2
 lilahagyma, paradicsom, brokkoli, kukorica
 
 Pizza 3
-gomba, hagyma, paradicsom, kukorica, kolbászkrém
+[[kolbászkrém]], gomba, hagyma, paradicsom, kukorica
 
 Répafasírt
 **(nosalty magyaros fasírt cukkini nélkül)

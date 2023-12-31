@@ -1,7 +1,7 @@
 body {
   color: #fff;
   font-family: 'Chivo', sans-serif;
-  font-size: 5vw;
+  font-size: 4.8vw;
   margin: 0;
   min-height: 100vh;
   display: flex;
@@ -146,6 +146,7 @@ button {
 .links {
   margin-left: 3vw;
 }
+
 
 .tag a {
   font-style: italic;
