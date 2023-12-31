@@ -1,11 +1,5 @@
-*{
-  background-color: #1e2f37;
-}
-
-
 body {
   color: #fff;
-  background-color: #1e2f37;
   font-family: 'Chivo', sans-serif;
   font-size: 5vw;
   margin: 0;
@@ -13,6 +7,7 @@ body {
   display: flex;
 }
 
+body,
 .header,
 .header2,
 .header3 {
