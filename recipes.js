@@ -176,7 +176,7 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
 
       ${hasIngredients ? '<ul>' : ''}
         ${hasIngredients ? ingredientLinks.map(ingredientLinks =>  `<li>${ingredientLinks}</li>`).join('') : ''}
-      ${hasIngredients ? '</ul><br>' : ''}
+      ${hasIngredients ? '</ul>' : ''}
       
       ${hasIngredients&&hasLinks ? '<hr>' : ''}
       ${hasLinks ? '<div class="links">' : ''}
@@ -461,9 +461,9 @@ function createIngredientsHTML(recipeTitles) {
         <p><span class="icon"><a href="index.html"><img src="apple-touch-icon.png"></a> Hozzávalók</span></p>
         </header>
         <div class="content">
-          <section>
+          <div class=striped-list>
             <ul>${ingredientList}</ul>
-          </section>
+          </div>
         </div>
       </div>
     </body>
