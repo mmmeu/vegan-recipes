@@ -2,6 +2,7 @@ const { link } = require('fs');
 const fs = require('fs-extra');
 const path = require('path');
 const imgFolderPath = 'images';
+const measurements = ["kevés", "fél", "csipet", "csipetnyi","liter","sok"]; // Add more measurements as needed
 function readRecipesFromFile(filename) {
   const fileContent = fs.readFileSync(filename, 'utf-8');
   const lines = fileContent.split('\n');
@@ -17,8 +18,10 @@ function readRecipesFromFile(filename) {
     const line = lines[i].trim();
 
     if (line.startsWith('**')) {
+      // Handle comments
       currentComments.push(line.slice(2).trim());
     } else if (line.length === 0) {
+      // Handle empty lines
       if (currentTitle) {
         recipes[currentTitle] = {
           ingredients: currentContent ? currentContent.split(',') : [],
@@ -33,21 +36,33 @@ function readRecipesFromFile(filename) {
       currentLinks = [];
       currentComments = [];
     } else if (!currentTitle) {
+      // Handle recipe title
       currentTitle = capitalizeFirstLetter(line);
     } else if (!currentContent) {
+      // Handle recipe content
       if (line.startsWith('#')) {
+        // Handle tags
         const tagsLine = line.slice(1).replace(/\s/g, '');
         currentTags = tagsLine.split('#');
       } else if (line.startsWith('http')) {
+        // Handle links
         currentLinks.push(line);
+      } else if (line.startsWith('[[') && line.endsWith(']]')) {
+        // Handle cross-references to other recipes
+        const linkedRecipeTitle = line.slice(2, -2).trim();
+        currentLinks.push(linkedRecipeTitle);
       } else {
         currentContent = line.toLowerCase();
+        
       }
     } else if (currentContent) {
+      // Handle additional content
       if (line.startsWith('#')) {
+        // Handle tags
         const tagsLine = line.slice(1).replace(/\s/g, '');
         currentTags = currentTags.concat(tagsLine.split('#'));
       } else if (line.startsWith('http')) {
+        // Handle links
         currentLinks.push(line);
       } else {
         currentContent += ',' + line.toLowerCase();
@@ -68,7 +83,7 @@ function readRecipesFromFile(filename) {
 }
 
 function normalizeLink(link){
-  const normalizedLink = link.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, '-').replace(/,/g, '').replace(/\./g, '').replace(/\'/g, '').replace(/[()]/g, '').toLowerCase();
+  const normalizedLink = link.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, '-').replace(/,/g, '').replace(/\./g, '').replace(/\'/g, '').replace(/[()]/g, '').replace(/^-/, '').toLowerCase();
   return normalizedLink;
 }
 
@@ -108,6 +123,20 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
   const imgFileName = `${normalizeLink(recipeTitle)}.png`;
   const imageExists = checkImageExists(imgFolderPath, imgFileName);
 
+
+  const ingredientLinks = hasIngredients
+    ? recipeIngredients.map((ingredient) => {
+        if (ingredient.startsWith('[[') && ingredient.endsWith(']]')) {
+          const linkedRecipeTitle = ingredient.slice(2, -2).trim();
+          return `<a href="../recipes/${normalizeLink(linkedRecipeTitle)}.html" style="text-decoration: underline; color: #8057a4;">${linkedRecipeTitle}</a>`;
+        } else {
+          const cleanIngredientName = ingredient.replace(/\b\d+(\.\d+)?(?:[kKgGmMlL]|gramm?|liter?)?\b/g, '').replace(/\((.*?)\)/g, '').replace(new RegExp(`\\b(?:${measurements.join('|')})\\b`, 'gi'), '').replace('[[', '').replace(']]', '').trim();
+          const normalizedIngredient = normalizeLink(cleanIngredientName);
+          return `<a href="../ingredients/${normalizedIngredient}.html">${ingredient}</a>`;
+        }
+      })
+    : [];
+
   const html = `
     <!DOCTYPE html>
     <html>
@@ -134,7 +163,7 @@ function createRecipeHTML(recipeTitle, recipeIngredients, recipeTags, recipeLink
       ${imageExists ? `<div class="image"><img src="/${imgFolderPath}/${imgFileName}"></div>` : ''}
 
       ${hasIngredients ? '<ul>' : ''}
-        ${hasIngredients ? recipeIngredients.map(ingredient =>  `<li>${ingredient}</li>`).join('') : ''}
+        ${hasIngredients ? ingredientLinks.map(ingredientLinks =>  `<li>${ingredientLinks}</li>`).join('') : ''}
       ${hasIngredients ? '</ul><br>' : ''}
       
       ${hasLinks ? '<div class="links">' : ''}
@@ -201,7 +230,7 @@ function createIndexHTML(recipeTitles) {
   <body>
   <div class="container">
     <header class="header">
-      <div class="emoji"><a href="tag.html">#️⃣</a></div><div><p><h1>Vegán Receptek</h1></p></div><div class="emoji"><a href="#" onclick="randomSite();">🎲</a></div>
+      <div><p><h1>Vegán Receptek</h1></p></div><div class="emoji"><a href="tag.html">#️⃣</a> <a href="ingredients.html">🧅</a> <a href="#" onclick="randomSite();">🎲</a></div>
     </header>
     <div class="content">
     <div class=striped-list>
@@ -309,6 +338,132 @@ function createTagHTML(recipeTitles) {
   console.log('Created tag.html');
 }
 
+function createIngredientsHTML(recipeTitles) {
+  
+  const allIngredients = [];
+  const ingredientLinks = {};
+
+
+  for (const recipeTitle in recipes) {
+    const recipeIngredients = recipes[recipeTitle].ingredients;
+    recipeIngredients.forEach((ingredient) => {
+      if (!ingredient.includes('+')) {
+      const normalizedIngredient = normalizeLink(ingredient);
+      allIngredients.push({ originalName: ingredient, normalizedName: normalizedIngredient });
+      if (!ingredientLinks[normalizedIngredient]) {
+        ingredientLinks[normalizedIngredient] = [];
+      }
+      
+      ingredientLinks[normalizedIngredient].push(recipeTitle);}
+    });
+  }
+
+  // Group ingredients by normalized name
+  const groupedIngredients = {};
+  allIngredients.forEach(({ originalName, normalizedName }) => {
+    const cleanIngredientName = originalName.replace(/\b\d+(\.\d+)?(?:[kKgGmMlL]|gramm?|liter?)?\b/g, '').replace(/\((.*?)\)/g, '').replace(new RegExp(`\\b(?:${measurements.join('|')})\\b`, 'gi'), '').replace('[[', '').replace(']]', '').trim();
+    if (!groupedIngredients[cleanIngredientName]) {
+      groupedIngredients[cleanIngredientName] = [];
+    }
+    groupedIngredients[cleanIngredientName].push(normalizedName);
+  });
+
+  // Sort and create HTML for each grouped ingredient
+  let ingredientList = '';
+  Object.keys(groupedIngredients).sort((a, b) => a[0].localeCompare(b[0], 'hu-HU')).forEach((cleanIngredientName) => {
+    const normalizedIngredients = Array.from(new Set(groupedIngredients[cleanIngredientName])).sort((a, b) => a[0].localeCompare(b[0], 'hu-HU'));
+    const recipeLinks = normalizedIngredients
+      .map((normalizedIngredient) => {
+        const recipeTitles = ingredientLinks[normalizedIngredient] || [];
+        return recipeTitles
+          .map((title) => `<li><a href="../recipes/${normalizeLink(title)}.html">${title}</a></li>`)
+          .join('');
+      })
+      .join('');
+
+    // Create separate HTML file for each ingredient
+    const ingredientHTML = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>${cleanIngredientName}</title>
+        <link rel="stylesheet" href="../style.css">
+        <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Chivo' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Russo One' rel='stylesheet'>
+        <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico?">
+        <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+        <link rel="manifest" href="../site.webmanifest">
+      </head>
+      <body>
+        <div class="container">
+          <header class="header2">
+          <div><p><span class="icon"><a href="../index.html"><img src="../apple-touch-icon.png"></a> ${cleanIngredientName} receptek</span></p></div>
+          </header>
+          <div class="content">
+            <section>
+              <ul>${recipeLinks}</ul>
+            </section>
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+
+    // Create a new folder for ingredient pages
+    const ingredientFolderPath = 'ingredients';
+    if (!fs.existsSync(ingredientFolderPath)) {
+      fs.mkdirSync(ingredientFolderPath);
+    }
+
+    // Write the HTML content to the ingredient file
+    const ingredientFilePath = path.join(ingredientFolderPath, `${normalizeLink(cleanIngredientName)}.html`);
+    fs.writeFileSync(ingredientFilePath, ingredientHTML, 'utf-8');
+    console.log(`Created ${ingredientFilePath}`);
+
+    // Add the link to the ingredient list
+    ingredientList += `<li><a href="${ingredientFilePath}">${cleanIngredientName}</a></li>`;
+  });
+
+  // Create ingredients.html with links to ingredient pages
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Ingredients</title>
+      <link rel="stylesheet" href="style.css">
+      <link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+      <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+      <link href='https://fonts.googleapis.com/css?family=Chivo' rel='stylesheet'>
+      <link href='https://fonts.googleapis.com/css?family=Russo One' rel='stylesheet'>
+      <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
+      <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+      <link rel="manifest" href="site.webmanifest">
+    </head>
+    <body>
+      <div class="container">
+        <header class="header3">
+        <p><span class="icon"><a href="index.html"><img src="apple-touch-icon.png"></a> Hozzávalók</span></p>
+        </header>
+        <div class="content">
+          <section>
+            <ul>${ingredientList}</ul>
+          </section>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+
+  fs.writeFileSync('ingredients.html', html, 'utf-8');
+  console.log('Created ingredients.html');
+}
+
 const recipeTitles = Object.keys(recipes);
 recipeTitles.sort((a, b) => a.localeCompare(b, 'hu-HU'));
 let recipeArray = [];
@@ -355,5 +510,9 @@ fs.writeFile(filename, data, (err) => {
   console.log('Data written to file successfully.');
 });
 
+
+
 createIndexHTML(recipeTitles);
 createTagHTML(recipeTitles);
+createIngredientsHTML(recipeTitles);
+

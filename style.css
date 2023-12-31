@@ -1,5 +1,5 @@
 body {
-  background-color: #1c2d46;
+  background-color: #21461c;
   color: #fff;
   font-family: 'Chivo', sans-serif;
   font-size: 5vw;
@@ -8,8 +8,15 @@ body {
   display: flex;
 }
 
+body,
+.header,
+.header2,
+.header3 {
+  background: #12260f;
+}
+
 .container{
-  background-color: #222;
+  background-color: #222222;
 
   display: flex;
   flex-direction: column;
@@ -53,7 +60,6 @@ a {
 .header,
 .header2,
 .header3 {
-  background: #1c2d46;
   font-size: 2.55vw;
 }
 
@@ -64,6 +70,12 @@ a {
   align-items: center;
   height: 18vw;
   font-family: 'Salsa';
+  padding-left: 11vw;
+}
+
+.header h1 {
+  align-items: center;
+
 }
 
 .header2 {
@@ -187,7 +199,7 @@ footer {
 }
 
 .icon img {
-  max-height: 7.5vw;
+  max-height: 10vw;
   border-radius: 1.2vw;
   margin-right: 1.5vw;
   min-width: 7.5vw;

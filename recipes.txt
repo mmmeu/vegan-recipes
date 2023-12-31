@@ -26,7 +26,7 @@ Bánh mi
 füstölt tofu, jégsaláta, savanyúság, ubi, pirított hagyma
 
 Bolognai
-szójagranulátum, kevés répa kockázva, vörös és fokhagyma, passata
+szójagranulátum, kevés répa kockázva, vöröshagyma, fokhagyma, passata
 #tészta
 
 Borsópörkölt
@@ -72,7 +72,7 @@ https://youtu.be/c3MbCjufog0
 #leves
 
 Gochujang tészta
-vegyes sparos gombával, fokhagymával
+vegyes sparos gomba, fokhagyma
 https://youtu.be/A5jL40Eshr8
 #tészta
 
@@ -81,7 +81,7 @@ https://pin.it/4bn7i8a
 #leves
 
 Gombapaprikás
-tejföllel, tv paprikával
+tejföl, tv paprika
 
 Gombapörkölt
 
@@ -131,7 +131,7 @@ Kesus spenótos tészta
 #tészta
 
 Kimchi leves
-leves alap (senpio), 160g kínai kel, kevés répa + retek, fél v hagyma, 2 fokhagyma, kevés újhagyma, kevés kimchi, guchug, fél l víz, só, ecet, tofu, virsli
+leves alap (senpio), 160g kínai kel, kevés répa + retek, fél vöröshagyma, 2 fokhagyma, kevés újhagyma, kevés kimchi, guchug, fél liter víz, só, ecet, tofu, virsli
 #leves
 
 Kolbászkrém
@@ -149,10 +149,10 @@ Lencsefőzelék
 #főzelék
 
 Maradék pesto mentés
-paradicsomok, tej + keményítő, tésztavíz, pesto
+paradicsom, tej + keményítő, tésztavíz, pesto
 
 Mindent bele leves
-fokhagyma, lilahagyma, kevés krumpli és répa, sok kukorica, leveskocka (2), 1 liter víz, sűrítés tejföl + liszt, kakukkfű, bazsalikom, majoranna
+fokhagyma, lilahagyma, kevés krumpli, kevés répa, sok kukorica, leveskocka (2), 1 liter víz, sűrítés tejföl + liszt, kakukkfű, bazsalikom, majoranna
 #leves
 
 Miso leves
