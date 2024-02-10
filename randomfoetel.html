@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Dishes Generator</title>
+<style>
+    #dishes-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    button {
+        border: none;
+        background: none;
+        padding: 0;
+        font-size: inherit;
+        font-family: inherit;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+    <button onclick="generateRandomDishes()">🎲</button>
+    <button onclick="copyToClipboard()">💾</button>
+    <ul id="dishes-list"></ul>
+
+    <script>
+        const alldishes = [
+    "Bolognai",
+    "Gyros",
+    "Banh mi",
+    "Pad thai",
+    "Gochujang tészta",
+    "Aszalt paradicsomos tészta",
+    "Kimchi leves",
+    "Kukoricás, tejszínes ragu rizzsal",
+    "Frankfurti leves",
+    "Pho",
+    "Pizza (magyaros; hawaii)",
+    "Ázsiai leves (ákos féle)",
+    "Bulgogi",
+    "Brassói",
+    "Japán curry",
+    "Lencsefőzelék",
+    "Arab bulgur",
+    "Rizs-tofu- zöldség olasz fűszerrel",
+    "Gyros laskából",
+    "Gulyásleves",
+    "Ákos tészta",
+    "Gombapaprikás",
+    "Mogyorós tészta",
+    "Chilis bab",
+    "Szójaszószos tészta",
+    "Paprikás krumpli",
+    "Borsópörkölt",
+    "Túrós tejfölös tészta",
+    "Daikon leves",
+    "Rukkola-pisztácia pesztó",
+    "Répás, cukkinis krémleves",
+    "Ázsiai gombás leves (tahinis pinterest rec)",
+    "Currys rizs",
+    "Dahl (pin recept)",
+    "Zöld curry",
+    "Mustáros, tejszínes tészta",
+    "Lecsó",
+    "Cukkinis, bébispenótos pesztó",
+    "Aloo curry",
+    "Tejszínes tészta spenóttal, paradicsommal...",
+    "Cukkini pörkölt",
+    "Mindent bele leves",
+    "Hamburger",
+    "Minestrone",
+    "Kesus spenóts tészta (alfredo?)",
+    "Gombás ramen 1 (gomba, újhagyma, leveskocka, gyömbér, fokhagyma, szójaszósz, szezámolaj, cukor + répa frissen picire vágva + spagetti tészta)",
+    "Gombaleves erdei stílusú? (Pin rec)",
+    "Ázsiai töltött káposzta",
+    "Gombás ramen 2. (Miso)",
+    "Miso leves",
+    "Vega fasírt mexikói zöldségből",
+    "Cukkini főzelék",
+    "Répafasírt 1. (Nosalty magyaros)",
+    "Tofu és zöldség stir fry 1. (Rainb plant l youtube hoisin szószos)",
+    "Gyudon",
+    "Gombás-padlizsános tészta (youtube, ázsiai)",
+    "Görög tésztasaláta",
+    "Taco tésztasaláta",
+    "Répafasírt 2. (Pin recept)",
+    "Carbonara",
+    "Tejszínes egyedényes tészta (nosalty)",
+    "Sriracha leves",
+    "Grillezett cukkini zöldfűszeres olívaolajjal",
+    "Burrito: rizs, salikevérék, limeos lilah, mexiói babpüré, házi salsa, kukorica",
+    "Padlizsán curry",
+    "Cajun tészta",
+    "Lencsefasírt",
+    "Poké bowl 1. (rizs, lencsefasírt, ecetes hagyma, kukorica, ubi, répa, srir majo)",
+    "Padliszánfasírt (hamburgerpogácsa)",
+    "Jalapenos kukoricaleves",
+    "Tom yum",
+    "Babos tészta (aldi recept)",
+    "Mentás borsófőzelék",
+    "Chili cheese nuggets",
+    "Brokkolis tészta",
+    "Finom főzelék",
+    "Kukorica chowder",
+    "Babgulyás",
+    "Tárkonyos tejszínes gombaleves",
+    "Kelkáposzta főzelék",
+    "Kínai stílusú marha és brokkoli",
+    "Wonton",
+    "Rántott tofu",
+    "Bab hamburger (ákos recept)",
+    "Bácskai rizseshús",
+    "Lencseleves",
+    "Lencse hamburger",
+    "Jackfruit pulled pork",
+    "Gombás citromos tészta",
+    "Korhely lencse",
+    "Rakott cukkini",
+    "Babu kedvence",
+    "Savanyú káposzta",
+    "Vegán puttanesca?",
+    "Cukkini krémleves bazsalikommal",
+    "Tortilla 1. (Rántott tofu és ranch szósz)",
+    "Tortilla 2. – Buffalo csicseri wrap",
+    "Rakott krumpli",
+    "Gombás tészta 1. ( Kuk, borsó, hagymák, paradicsom sűrítmény, fűszerek, keményítő)",
+    "Szójagranulátom fasírt",
+    "Borsófőzelék (hagyományos)",
+    "Bableves csipetkével",
+    "Ikea zöldségfasírt",
+    "Gombás tészta 2. ( Gomba, kukorica, sűrített paradicsom)",
+    "Édesburgonya krémleves",
+    "Brokkoli+szójakocka osztriga és miegymás szószban (pinterest recept)",
+    "Chicken nuggets (pin recept)",
+    "Mac and cheese tészta",
+    "Japán stir fry káposzta",
+    "Édes savanyú tofu",
+    "Burgonyfőzelék 1. (Ákos recept, babos)",
+    "Zabfasírt",
+    "Spanyol spenótos csicseri",
+    "Mungóbabos mexikói egytálétel (ákos recept)",
+    "Savanyú káposzta 2. (3-3 babér, negyed kk kömény, nagyon kevés bors)",
+    "Gombás csicseris ragu (cukkini nélkül, sima paradicsommal, római köménnyel)",
+    "Currys csicseri fasírt",
+    "Tahinis tészta (pin recept)",
+    "Gombás melegszendvicskrém",
+    "Lou rou fan",
+    "Hoisin szószos zöldségek (chi. Takaway k)",
+    "Miso ramen 2. (Easy One-Pot Spicy Miso Ramen (Vegan)) (char shiugombával)",
+    "Char siu gomba (ramen feltét)",
+    "Sült paprikás paradicsomos tészta",
+    "Tortilla 3. (Curry szószos sült csicseris)",
+    "Görög rakott krumpli",
+    "Marry me tészta",
+    "Taco hús (pin recept)",
+    "Curry leves vegyes zöldséggel",
+    "Babfőzelék",
+    "Ákos villám tésztája",
+    "Aloo curry",
+    "Arab bulgur",
+    "Aszalt paradicsomos tészta",
+    "Ázsiai leves",
+    "Ázsiai tészta",
+    "Ázsiai töltött káposzta",
+    "Bánh mi",
+    "Bolognai",
+    "Borsópörkölt",
+    "Brassói",
+    "Bulgogi",
+    "Carbonara",
+    "Chilis bab",
+    "Cukkini pörkölt",
+    "Cukkinifőzelék",
+    "Cukkinis bébispenótos pesto",
+    "Currys rizs",
+    "Dahl",
+    "Daikon leves",
+    "Falafel fasírtpor borsóval, kukoricával és fűszerekkel feltuningolva",
+    "Frankfurti leves",
+    "Gochujang tészta",
+    "Gombaleves (kakukkfű)",
+    "Gombapaprikás",
+    "Gombapörkölt",
+    "Gombás leves (ázsiai)",
+    "Gombás ramen 1",
+    "Gombás ramen 2",
+    "Gombás-padlizsán tészta",
+    "Görög tésztasaláta",
+    "Gulyás leves",
+    "Gyros",
+    "Gyudon",
+    "Hamburger",
+    "Hawaii pizza",
+    "Japán curry",
+    "Kesus spenótos tészta",
+    "Kukoricás, szójás tejszínes ragu rizzsel",
+    "Lecsó",
+    "Lencsefőzelék",
+    "Maradék pesto mentés",
+    "Mindent bele leves",
+    "Miso leves",
+    "Mogyorós tészta",
+    "Mustáros tejszínes tészta",
+    "Pad thai",
+    "Paprikás krumpli",
+    "Pho",
+    "Pizza 1",
+    "Pizza 2",
+    "Pizza 3",
+    "Répafasírt",
+    "Répás-cukkinis krémleves",
+    "Rizs-tofu-zöldség olasz fűszerrel",
+    "Rukkolás-pisztáciás pesto",
+    "Szójaszószos tészta",
+    "Tejszínes tészta spenóttal",
+    "Tésztasaláta",
+    "Tofu stir fry ázsiai fagyasztott zöldséggel",
+    "Túrós tejfölös tészta",
+    "Vegán fasírt mexikói zöldséggel",
+    "Vegán minestrone",
+    "Zöld curry tofuval"
+];
+
+        const dishes = [...new Set(alldishes)];
+
+        function generateRandomDishes() {
+            const dishesList = document.getElementById('dishes-list');
+            dishesList.innerHTML = '';
+
+            const uniqueDishes = getRandomUniqueDishes(dishes, 5);
+
+            uniqueDishes.forEach(dish => {
+                const li = document.createElement('li');
+                li.textContent = dish;
+                dishesList.appendChild(li);
+
+                const replaceButton = document.createElement('button');
+                replaceButton.textContent = '♻️';
+                replaceButton.onclick = () => replaceDish(li);
+                li.insertBefore(replaceButton, li.firstChild);
+            });
+        }
+
+        function getRandomUniqueDishes(array, num) {
+            const shuffled = array.slice().sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, num);
+        }
+
+        function replaceDish(li) {
+            const indexToRemove = Array.from(li.parentNode.children).indexOf(li);
+            const newDish = getRandomUniqueDishes(dishes.filter((_, i) => i !== indexToRemove), 1)[0];
+            li.textContent = newDish;
+
+            const replaceButton = document.createElement('button');
+            replaceButton.textContent = '♻️';
+            replaceButton.onclick = () => replaceDish(li);
+            li.insertBefore(replaceButton, li.firstChild);
+        }
+
+        function copyToClipboard() {
+            const dishesList = document.getElementById('dishes-list');
+            const selectedDishes = Array.from(dishesList.getElementsByTagName('li')).map(li => li.textContent.replace(/\p{Emoji}\uFE0F?/gu, '')).join('\n');
+            const textarea = document.createElement('textarea');
+            textarea.value = selectedDishes;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        }
+    </script>
+</body>
+</html>
+️
