@@ -4,26 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Random Dishes Generator</title>
-<style>
-    #dishes-list {
-        list-style-type: none;
-        padding: 0;
-    }
-    button {
-        border: none;
-        background: none;
-        padding: 0;
-        font-size: inherit;
-        font-family: inherit;
-        text-decoration: none;
-        cursor: pointer;
-    }
-</style>
+<link rel="stylesheet" href="style.css">
+<link href='https://fonts.googleapis.com/css?family=Salsa' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Chivo' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Russo One' rel='stylesheet'>
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="manifest" href="site.webmanifest">
 </head>
 <body>
-    <button onclick="generateRandomDishes()">🎲</button>
-    <button onclick="copyToClipboard()">💾</button>
-    <ul id="dishes-list"></ul>
+    <div class="container">
+      <header style="background-color: #1e2f37;">
+      <p><span class="icon" style="display: flex;"><a style="flex: 1; padding: 2vw;" href="index.html"><img src="apple-touch-icon.png"></a> <span id="control-buttons" style="flex: 1;">
+        <button style="font-size: 7vw;" onclick="decrementDishes()">➖</button>
+        <span id="num-dishes" style="font-size: 8vw;">5</span>
+        <button style="font-size: 7vw;" onclick="incrementDishes()">➕</button>
+      </span> <button style="font-size: 8vw;" onclick="generateRandomDishes()">🎲</button> <button style="font-size: 8vw; padding: 2vw;" onclick="copyToClipboard()">💾</button></span></p>
+      
+      </header>
+      <div class="content">
+        <div id="striped-list"></div>
+      </div>
+    </div>
 
     <script>
         const alldishes = [
@@ -33,10 +38,8 @@
     "Pad thai",
     "Gochujang tészta",
     "Aszalt paradicsomos tészta",
-    "Kimchi leves",
-    "Kukoricás, tejszínes ragu rizzsal",
+    "Kukoricás, tejszínes ragu rizzsel",
     "Frankfurti leves",
-    "Pho",
     "Pizza (magyaros; hawaii)",
     "Ázsiai leves (ákos féle)",
     "Bulgogi",
@@ -46,55 +49,46 @@
     "Arab bulgur",
     "Rizs-tofu- zöldség olasz fűszerrel",
     "Gyros laskából",
-    "Gulyásleves",
-    "Ákos tészta",
     "Gombapaprikás",
     "Mogyorós tészta",
     "Chilis bab",
     "Szójaszószos tészta",
     "Paprikás krumpli",
     "Borsópörkölt",
-    "Túrós tejfölös tészta",
-    "Daikon leves",
     "Rukkola-pisztácia pesztó",
     "Répás, cukkinis krémleves",
-    "Ázsiai gombás leves (tahinis pinterest rec)",
+    "Ázsiai gombás leves (tahinis pinterest)",
     "Currys rizs",
-    "Dahl (pin recept)",
     "Zöld curry",
-    "Mustáros, tejszínes tészta",
-    "Lecsó",
     "Cukkinis, bébispenótos pesztó",
-    "Aloo curry",
     "Tejszínes tészta spenóttal, paradicsommal...",
     "Cukkini pörkölt",
     "Mindent bele leves",
     "Hamburger",
     "Minestrone",
     "Kesus spenóts tészta (alfredo?)",
-    "Gombás ramen 1 (gomba, újhagyma, leveskocka, gyömbér, fokhagyma, szójaszósz, szezámolaj, cukor + répa frissen picire vágva + spagetti tészta)",
-    "Gombaleves erdei stílusú? (Pin rec)",
+    "Gombaleves erdei stílusú? (Pin)",
     "Ázsiai töltött káposzta",
-    "Gombás ramen 2. (Miso)",
+    "Gombás ramen (Miso)",
     "Miso leves",
     "Vega fasírt mexikói zöldségből",
     "Cukkini főzelék",
     "Répafasírt 1. (Nosalty magyaros)",
-    "Tofu és zöldség stir fry 1. (Rainb plant l youtube hoisin szószos)",
+    "Tofu és zöldség stir fry",
     "Gyudon",
     "Gombás-padlizsános tészta (youtube, ázsiai)",
     "Görög tésztasaláta",
     "Taco tésztasaláta",
-    "Répafasírt 2. (Pin recept)",
+    "Répafasírt 2. (Pin)",
     "Carbonara",
     "Tejszínes egyedényes tészta (nosalty)",
     "Sriracha leves",
     "Grillezett cukkini zöldfűszeres olívaolajjal",
-    "Burrito: rizs, salikevérék, limeos lilah, mexiói babpüré, házi salsa, kukorica",
+    "Burrito",
     "Padlizsán curry",
     "Cajun tészta",
     "Lencsefasírt",
-    "Poké bowl 1. (rizs, lencsefasírt, ecetes hagyma, kukorica, ubi, répa, srir majo)",
+    "Poké bowl",
     "Padliszánfasírt (hamburgerpogácsa)",
     "Jalapenos kukoricaleves",
     "Tom yum",
@@ -123,16 +117,15 @@
     "Vegán puttanesca?",
     "Cukkini krémleves bazsalikommal",
     "Tortilla 1. (Rántott tofu és ranch szósz)",
-    "Tortilla 2. – Buffalo csicseri wrap",
+    "Tortilla 2. - Buffalo csicseri wrap",
     "Rakott krumpli",
-    "Gombás tészta 1. ( Kuk, borsó, hagymák, paradicsom sűrítmény, fűszerek, keményítő)",
+    "Gombás tészta",
     "Szójagranulátom fasírt",
     "Borsófőzelék (hagyományos)",
     "Bableves csipetkével",
     "Ikea zöldségfasírt",
-    "Gombás tészta 2. ( Gomba, kukorica, sűrített paradicsom)",
     "Édesburgonya krémleves",
-    "Brokkoli+szójakocka osztriga és miegymás szószban (pinterest recept)",
+    "Brokkoli+szójakocka osztriga és miegymás szószban (pin)",
     "Chicken nuggets (pin recept)",
     "Mac and cheese tészta",
     "Japán stir fry káposzta",
@@ -141,10 +134,9 @@
     "Zabfasírt",
     "Spanyol spenótos csicseri",
     "Mungóbabos mexikói egytálétel (ákos recept)",
-    "Savanyú káposzta 2. (3-3 babér, negyed kk kömény, nagyon kevés bors)",
     "Gombás csicseris ragu (cukkini nélkül, sima paradicsommal, római köménnyel)",
     "Currys csicseri fasírt",
-    "Tahinis tészta (pin recept)",
+    "Tahinis tészta (pin)",
     "Gombás melegszendvicskrém",
     "Lou rou fan",
     "Hoisin szószos zöldségek (chi. Takaway k)",
@@ -154,7 +146,6 @@
     "Tortilla 3. (Curry szószos sült csicseris)",
     "Görög rakott krumpli",
     "Marry me tészta",
-    "Taco hús (pin recept)",
     "Curry leves vegyes zöldséggel",
     "Babfőzelék",
     "Ákos villám tésztája",
@@ -164,11 +155,7 @@
     "Ázsiai leves",
     "Ázsiai tészta",
     "Ázsiai töltött káposzta",
-    "Bánh mi",
-    "Bolognai",
     "Borsópörkölt",
-    "Brassói",
-    "Bulgogi",
     "Carbonara",
     "Chilis bab",
     "Cukkini pörkölt",
@@ -184,13 +171,10 @@
     "Gombapaprikás",
     "Gombapörkölt",
     "Gombás leves (ázsiai)",
-    "Gombás ramen 1",
-    "Gombás ramen 2",
+    "Gombás ramen",
     "Gombás-padlizsán tészta",
     "Görög tésztasaláta",
     "Gulyás leves",
-    "Gyros",
-    "Gyudon",
     "Hamburger",
     "Hawaii pizza",
     "Japán curry",
@@ -203,12 +187,9 @@
     "Miso leves",
     "Mogyorós tészta",
     "Mustáros tejszínes tészta",
-    "Pad thai",
     "Paprikás krumpli",
     "Pho",
-    "Pizza 1",
-    "Pizza 2",
-    "Pizza 3",
+    "Pizza",
     "Répafasírt",
     "Répás-cukkinis krémleves",
     "Rizs-tofu-zöldség olasz fűszerrel",
@@ -225,11 +206,13 @@
 
         const dishes = [...new Set(alldishes)];
 
+        let numDishes = 5;
+
         function generateRandomDishes() {
-            const dishesList = document.getElementById('dishes-list');
+            const dishesList = document.getElementById('striped-list');
             dishesList.innerHTML = '';
 
-            const uniqueDishes = getRandomUniqueDishes(dishes, 5);
+            const uniqueDishes = getRandomUniqueDishes(dishes, numDishes);
 
             uniqueDishes.forEach(dish => {
                 const li = document.createElement('li');
@@ -237,31 +220,52 @@
                 dishesList.appendChild(li);
 
                 const replaceButton = document.createElement('button');
-                replaceButton.textContent = '♻️';
+                replaceButton.textContent = '🔄';
                 replaceButton.onclick = () => replaceDish(li);
                 li.insertBefore(replaceButton, li.firstChild);
             });
         }
 
         function getRandomUniqueDishes(array, num) {
-            const shuffled = array.slice().sort(() => 0.5 - Math.random());
-            return shuffled.slice(0, num);
-        }
+    const shuffled = array.slice();
+    let currentIndex = shuffled.length, temporaryValue, randomIndex;
 
-        function replaceDish(li) {
-            const indexToRemove = Array.from(li.parentNode.children).indexOf(li);
-            const newDish = getRandomUniqueDishes(dishes.filter((_, i) => i !== indexToRemove), 1)[0];
-            li.textContent = newDish;
+    while (0 !== currentIndex) {
 
-            const replaceButton = document.createElement('button');
-            replaceButton.textContent = '♻️';
-            replaceButton.onclick = () => replaceDish(li);
-            li.insertBefore(replaceButton, li.firstChild);
-        }
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        temporaryValue = shuffled[currentIndex];
+        shuffled[currentIndex] = shuffled[randomIndex];
+        shuffled[randomIndex] = temporaryValue;
+    }
+
+    return shuffled.slice(0, num);
+}
+
+
+function replaceDish(li) {
+    const existingDishes = Array.from(li.parentNode.children).map(child => child.textContent.trim());
+    const indexToRemove = existingDishes.indexOf(li.textContent.trim());
+
+    existingDishes.splice(indexToRemove, 1);
+
+    const availableDishes = dishes.filter(dish => !existingDishes.includes(dish));
+    const newDish = getRandomUniqueDishes(availableDishes, 1)[0];
+
+    li.textContent = newDish;
+
+    const replaceButton = document.createElement('button');
+    replaceButton.textContent = '🔄';
+    replaceButton.onclick = () => replaceDish(li);
+    li.insertBefore(replaceButton, li.firstChild);
+}
+
+
 
         function copyToClipboard() {
-            const dishesList = document.getElementById('dishes-list');
-            const selectedDishes = Array.from(dishesList.getElementsByTagName('li')).map(li => li.textContent.replace(/\p{Emoji}\uFE0F?/gu, '')).join('\n');
+            const dishesList = document.getElementById('striped-list');
+            const selectedDishes = Array.from(dishesList.getElementsByTagName('li')).map(li => li.textContent.replace(/\p{Emoji}/gu, '• ').replace(/ • ./g, '')).join('\n');
             const textarea = document.createElement('textarea');
             textarea.value = selectedDishes;
             document.body.appendChild(textarea);
@@ -269,7 +273,19 @@
             document.execCommand('copy');
             document.body.removeChild(textarea);
         }
+
+        function incrementDishes() {
+            numDishes++;
+            document.getElementById('num-dishes').textContent = numDishes;
+        }
+
+        function decrementDishes() {
+            if (numDishes > 1) {
+                numDishes--;
+                document.getElementById('num-dishes').textContent = numDishes;
+            }
+        }
+        generateRandomDishes();
     </script>
 </body>
 </html>
-️
